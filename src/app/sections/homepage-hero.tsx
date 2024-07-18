@@ -29,8 +29,8 @@ export default function HomepageHero() {
       </HeroSubtitle>
       <div className='flex gap-2 justify-center animate-fade-in [--animation-delay:600ms] translate-y-[-1rem] opacity-0'>
         <Button
-          className='hover:bg-white border hover:border-white hover:shadow-[0_0_16px_rgba(255,255,255,0.5)] transition duration-500 ease-in-out shadow-none'
-          href='/'
+          className='rounded-md hover:bg-white border hover:border-white hover:shadow-[0_0_16px_rgba(255,255,255,0.5)] transition duration-500 ease-in-out shadow-none'
+          // href='/'
           variant='primary'
           size='large'
         >

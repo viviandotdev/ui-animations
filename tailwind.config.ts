@@ -3,6 +3,13 @@ import type { Config } from 'tailwindcss';
 export default {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: {
+        '2xl': '1400px',
+      },
+    },
     fontSize: {
       xs: '1.3rem',
       sm: '1.4rem',
@@ -39,16 +46,38 @@ export default {
     },
     extend: {
       colors: {
+        border: 'hsl(var(--border))',
+        background: 'var(--background)',
+        foreground: 'hsl(var(--foreground))',
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
         transparent: 'transparent',
         white: '#fff',
         'off-white': '#f7f8f8',
         'transparent-white': 'rgba(255, 255, 255, 0.08)',
-        background: '#161616',
+
         grey: '#858699',
         'grey-dark': '#222326',
         'primary-text': '#D8D5D1',
       },
-
       backgroundImage: {
         'page-gradient':
           'linear-gradient(#161616, #161616 13%, rgba(22, 22, 22, 0) 89%, #161616), url(/Grid.svg)',
