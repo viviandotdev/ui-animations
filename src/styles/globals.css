@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --navigation-height: 4.8rem;
+  }
+
+  html {
+    @apply bg-background font-sans text-white;
+    font-size: 62.5%;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(
+      to right bottom,
+      rgb(255, 255, 255) 30%,
+      rgba(255, 255, 255, 0.38)
+    );
+    background-clip: text; /*  gradient will only be visible within the shape of the text */
+    color: transparent; /* makes text color transparent so gradient color is visible through the text  */
+  }
+}
