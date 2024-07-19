@@ -1,7 +1,9 @@
 import type { Config } from 'tailwindcss';
 
 export default {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  // content: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
+  content: ['./src/**/*.{js,jsx,ts,tsx}', './src/components/**/*.{ts,tsx}'],
+  darkMode: 'class',
   theme: {
     container: {
       center: true,
@@ -10,70 +12,17 @@ export default {
         '2xl': '1400px',
       },
     },
-    fontSize: {
-      xs: '1.3rem',
-      sm: '1.4rem',
-      md: '1.6rem',
-      lg: '1.8rem',
-      xl: ['2.2rem', '1.3'],
-      '2xl': '2.4rem',
-      '3xl': '2.6rem',
-      '4xl': '3.2rem',
-      '5xl': '4rem',
-      '6xl': ['4.4rem', '1'],
-      '7xl': ['4.8rem', '1'],
-      '8xl': ['8rem', '1'],
-    },
-    spacing: {
-      0: '0',
-      1: '0.4rem',
-      2: '0.8rem',
-      3: '1.2rem',
-      4: '1.6rem',
-      5: '2rem',
-      6: '2.4rem',
-      7: '2.8rem',
-      8: '3.2rem',
-      9: '3.6rem',
-      10: '4rem',
-      11: '4.4rem',
-      12: '4.8rem',
-      13: '5.2rem',
-      14: '5.6rem',
-      15: '6rem',
-      16: '6.4rem',
-      'navigation-height': 'var(--navigation-height)',
-    },
     extend: {
+      spacing: {
+        'navigation-height': 'var(--navigation-height)',
+      },
       colors: {
-        border: 'hsl(var(--border))',
-        background: 'var(--background)',
+        background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
-        primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
-        },
-        secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
-        },
-        muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
-        },
-        accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
-        },
-        card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
-        },
         transparent: 'transparent',
         white: '#fff',
         'off-white': '#f7f8f8',
         'transparent-white': 'rgba(255, 255, 255, 0.08)',
-
         grey: '#858699',
         'grey-dark': '#222326',
         'primary-text': '#D8D5D1',
@@ -83,17 +32,26 @@ export default {
           'linear-gradient(#161616, #161616 13%, rgba(22, 22, 22, 0) 89%, #161616), url(/Grid.svg)',
       },
     },
-
     keyframes: {
       'fade-in': {
         from: { opacity: '0', transform: 'translateY(-10px)' },
         to: { opacity: '1', transform: 'none' },
       },
+      'accordion-down': {
+        from: { height: '0' },
+        to: { height: 'var(--radix-accordion-content-height)' },
+      },
+      'accordion-up': {
+        from: { height: 'var(--radix-accordion-content-height)' },
+        to: { height: '0' },
+      },
     },
     //custom animation utility class
     animation: {
       'fade-in': 'fade-in 2000ms var(--animation-delay, 0ms) ease forwards',
+      'accordion-down': 'accordion-down 0.2s ease-out',
+      'accordion-up': 'accordion-up 0.2s ease-out',
     },
   },
-  plugins: [],
+  plugins: [require('tailwindcss-animate')],
 } satisfies Config;

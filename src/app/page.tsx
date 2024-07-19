@@ -8,7 +8,7 @@ import HomepageHero from '@/app/sections/homepage-hero';
 export default function Homepage() {
   return (
     <>
-      <div className='overflow-hidden pb-[16.4rem] md:pb-[25.6rem] bg-page-gradient'>
+      <div className='overflow-hidden pb-[16.4rem] md:pb-[25.6rem] dark:bg-page-gradient'>
         <Container className='py-[6.4rem] '>
           <HomepageHero />
         </Container>

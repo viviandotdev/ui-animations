@@ -5,32 +5,39 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-zinc-950 dark:focus-visible:ring-zinc-300',
   {
     variants: {
       variant: {
         primary: [
-          'text-neutral-900 bg-stone-300 border rounded-lg',
+          'dark:bg-stone-300 dark:text-black',
+          'text-zinc-50 bg-zinc-900 border rounded-lg',
           '[&_.highlight]:ml-2',
         ],
         secondary: [
-          'text-off-white bg-white bg-opacity-10 border border-transparent-white backdrop-filter-[12px] transition duration-300 hover:shadow-[inset_0_-7px_11px_#a48fff1f] ease-in',
+          'dark:border-transparent-white dark:text-off-white dark:bg-white dark:bg-opacity-10',
+          'text-gray-400 bg-opacity-0 border-gray-200',
+          'border backdrop-filter-[12px] transition duration-300 hover:shadow-[inset_0_-7px_11px_#cccccc1f] ease-in',
           '[&_.highlight]:bg-transparent-white [&_.highlight]:rounded-full [&_.highlight]:px-2 [&_.highlight:last-child]:ml-2 [&_.highlight:last-child]:-mr-2 [&_.highlight:first-child]:-ml-2 [&_.highlight:first-child]:mr-2',
         ],
-        default: 'bg-primary text-primary-foreground hover:bg-primary/90',
-        // secondary:
-        //   'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+        default:
+          'bg-zinc-900 text-zinc-50 hover:bg-zinc-900/90 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-50/90',
+        outline:
+          'border border-zinc-200 bg-white hover:bg-zinc-100 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:bg-zinc-800 dark:hover:text-zinc-50',
+        ghost:
+          'hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-50',
+        link: 'text-zinc-900 underline-offset-4 hover:underline dark:text-zinc-50',
       },
       size: {
-        small: 'text-xs px-3 h-7',
-        medium: 'text-sm px-4 h-8',
-        large: 'text-md px-6 h-12',
+        default: 'h-10 px-4 py-2',
+        sm: 'h-7 rounded-md px-3',
+        lg: 'h-[54px] rounded-md px-6',
         icon: 'h-10 w-10',
       },
     },
     defaultVariants: {
       variant: 'default',
-      size: 'medium',
+      size: 'default',
     },
   },
 );

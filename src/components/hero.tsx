@@ -5,6 +5,7 @@ interface HeroElementProps {
   children: React.ReactNode;
   className?: string;
 }
+
 export const HeroTitle: React.FC<HeroElementProps> = ({
   children,
   className,
@@ -12,7 +13,8 @@ export const HeroTitle: React.FC<HeroElementProps> = ({
   return (
     <h1
       className={classNames(
-        'text-gradient my-6 text-6xl md:text-8xl',
+        'my-6 text-6xl md:text-7xl',
+        'light-text-gradient dark:dark-text-gradient',
         className,
       )}
     >
@@ -25,7 +27,7 @@ export const HeroSubtitle = ({ children, className }: HeroElementProps) => {
   return (
     <p
       className={classNames(
-        'mb-12 text-lg text-primary-text md:text-xl',
+        'mb-8 text-lg text-zinc-700 dark:text-primary-text md:text-xl',
         className,
       )}
     >

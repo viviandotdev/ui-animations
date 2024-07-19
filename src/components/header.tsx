@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 
 import { Container } from '@/components/container';
+import { ModeToggle } from '@/components/mode-toggle';
 import { Button } from '@/components/ui/button';
 
 export const Header = () => {
@@ -13,13 +14,14 @@ export const Header = () => {
           {/* <Logo className='mr-4 h-[1.8rem] w-[1.8rem]' /> */}
           UI Animations
         </Link>
-        <div className='ml-auto flex h-full items-center'>
+        <div className='ml-auto flex gap-2 h-full items-center'>
           <Link className='mr-6 text-sm' href='#'>
             Log in
           </Link>
-          <Button href='#' variant='primary'>
-            Sign up
+          <Button asChild variant='primary'>
+            <Link href='#'>Sign up</Link>
           </Button>
+          <ModeToggle />
         </div>
       </Container>
     </header>

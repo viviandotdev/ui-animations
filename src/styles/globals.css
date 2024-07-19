@@ -4,36 +4,48 @@
 
 @layer base {
   :root {
-    --navigation-height: 4.8rem;
-    --background: #161616;
-    --foreground: #f7f8f8;
-    --card: 0 0% 100%;
-    --card-foreground: 240 6.67% 2.94%;
-    --primary: 240 5.88% 10%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 240 4.76% 95.88%;
-    --secondary-foreground: 240 5.88% 10%;
-    --muted: 240 4.76% 95.88%;
-    --muted-foreground: 240 3.83% 46.08%;
-    --accent: 240 4.76% 95.88%;
-    --accent-foreground: 240 5.88% 10%;
-    --border: 240 5.88% 90%;
+    --navigation-height: 3.6rem;
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
   }
 
+  .dark {
+    --navigation-height: 3.6rem;
+    --background: 0, 0%, 9%;
+    --foreground: 0 0% 98%;
+  }
+}
+
+@layer base {
   html {
-    @apply bg-background font-sans text-white;
-    font-size: 62.5%;
+    @apply bg-background font-sans;
+  }
+  body {
+    @apply text-foreground;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
   }
 }
 
 @layer utilities {
-  .text-gradient {
+  .dark-text-gradient {
     background: linear-gradient(
       to right bottom,
       rgb(255, 255, 255) 30%,
       rgba(255, 255, 255, 0.38)
     );
-    background-clip: text; /*  gradient will only be visible within the shape of the text */
-    color: transparent; /* makes text color transparent so gradient color is visible through the text  */
+    background-clip: text;
+    color: transparent;
+  }
+
+  .light-text-gradient {
+    background: linear-gradient(
+      163deg,
+      #000 16.12%,
+      rgba(102, 102, 102, 0.7) 94.64%
+    );
+    background-clip: text;
+    color: transparent;
   }
 }
