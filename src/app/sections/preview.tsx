@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Dock from '@/components/previews/magnified-dock';
+import AnimatedTabs from '@/components/previews/animated-tabs';
 import { Button } from '@/components/ui/button';
 import { Icons } from '@/components/ui/icons';
 import {
@@ -48,7 +48,7 @@ export const Preview: React.FC = () => {
           </div>
         </div>
         <div className='flex h-[350px] w-full items-center justify-center'>
-          <Dock />
+          <AnimatedTabs />
         </div>
         <div className='flex justify-between items-center w-full'>
           <div className='text-zinc-400 text-sm font-normal leading-tight'>
