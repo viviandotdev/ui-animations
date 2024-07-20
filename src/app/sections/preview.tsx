@@ -1,4 +1,5 @@
 'use client';
+import { AnimatePresence, motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -17,6 +18,7 @@ import { COMPONENTS_CONFIG } from '@/constant/components.config';
 
 export const Preview: React.FC = () => {
   const [index, setIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
   const [mounted, setMounted] = useState(false);
   const components = Object.entries(COMPONENTS_CONFIG).map(
     ([_, value], index) => ({
@@ -29,14 +31,34 @@ export const Preview: React.FC = () => {
     setMounted(true);
   }, []);
 
-  const nextVariant = () => {
-    setIndex((prevIndex) => (prevIndex + 1) % components.length);
+  const nextStep = () => {
+    if (index < components.length - 1) {
+      setDirection(1);
+      setIndex((prevIndex) => prevIndex + 1);
+    }
   };
 
-  const prevVariant = () => {
-    setIndex(
-      (prevIndex) => (prevIndex + components.length - 1) % components.length,
-    );
+  const prevStep = () => {
+    if (index > 0) {
+      setDirection(-1);
+      setIndex((prevIndex) => prevIndex - 1);
+    }
+  };
+
+  const variants = {
+    initial: (direction: number) => {
+      return {
+        x: `${110 * direction}%`,
+        opacity: 0,
+      };
+    },
+    active: { x: '0%', opacity: 1 },
+    exit: (direction: number) => {
+      return {
+        x: `${-110 * direction}%`,
+        opacity: 0,
+      };
+    },
   };
 
   return (
@@ -68,19 +90,48 @@ export const Preview: React.FC = () => {
             </Select>
             <div className='opacity-50 flex justify-center items-center' />
             <div className='flex justify-start items-center gap-3.5'>
-              <Button onClick={prevVariant} variant='outline' size='icon'>
+              <Button
+                onClick={prevStep}
+                variant='outline'
+                size='icon'
+                disabled={index === 0}
+              >
                 <Icons.ChevronLeft className='h-5 w-5' />
                 <span className='sr-only'>Prev</span>
               </Button>
-              <Button onClick={nextVariant} variant='outline' size='icon'>
+              <Button
+                onClick={nextStep}
+                variant='outline'
+                size='icon'
+                disabled={index === components.length - 1}
+              >
                 <Icons.ChevronRight className='h-5 w-5' />
                 <span className='sr-only'>Next</span>
               </Button>
             </div>
           </div>
         </div>
-        <div className='flex h-[350px] w-full items-center justify-center'>
-          {React.cloneElement(components[index].preview)}
+        <div className='relative h-[350px] w-full overflow-hidden'>
+          <AnimatePresence mode='popLayout' initial={false} custom={direction}>
+            <motion.div
+              key={index}
+              custom={direction}
+              variants={variants}
+              initial='initial'
+              animate='active'
+              exit='exit'
+              transition={{
+                x: {
+                  type: 'spring',
+                  bounce: 0,
+                  duration: 0.8,
+                },
+              }}
+              className='absolute inset-0 flex items-center justify-center'
+            >
+              {React.cloneElement(components[index].preview)}
+            </motion.div>
+          </AnimatePresence>
         </div>
         <div className='flex justify-between items-center w-full'>
           <div className='text-zinc-400 text-sm font-normal leading-tight'>
@@ -94,4 +145,5 @@ export const Preview: React.FC = () => {
     </div>
   );
 };
+
 export default Preview;
