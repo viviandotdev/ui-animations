@@ -8,16 +8,12 @@ import HomepageHero from '@/app/sections/homepage-hero';
 export default function Homepage() {
   return (
     <>
-      <div className='overflow-hidden pb-[16.4rem] md:pb-[25.6rem] dark:bg-page-gradient'>
-        <Container className='py-[6.4rem] '>
+      <div className='overflow-hidden max-w-5xl mx-auto pb-[16.4rem] md:pb-[25.6rem] dark:bg-page-gradient'>
+        <Container className='py-[4.4rem] '>
           <HomepageHero />
         </Container>
       </div>
-      <div
-        className={classNames(
-          'z-[-1] relative my-[-12.8rem] h-[60rem] overflow-hidden',
-        )}
-      ></div>
+      <div className={classNames('relative h-[60rem] overflow-hidden')}></div>
     </>
   );
 }

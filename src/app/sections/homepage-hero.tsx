@@ -4,10 +4,14 @@ import '@/lib/env';
 
 import { cn } from '@/lib/utils';
 
+import { Container } from '@/components/container';
 import Hero, { HeroSubtitle, HeroTitle } from '@/components/hero';
 import { Button, Highlight } from '@/components/ui/button';
 import Emoji from '@/components/ui/emoji';
 import { Icons } from '@/components/ui/icons';
+
+import Preview from '@/app/sections/preview';
+
 export default function HomepageHero() {
   return (
     <Hero>
@@ -19,7 +23,7 @@ export default function HomepageHero() {
       >
         <Link href='/' target='_blank'>
           <Emoji label='sparkles' symbol='✨' />{' '}
-          <span className='ml-2'>New: Introducing Animated Dock </span>
+          <span className='ml-2'>New: Introducing Magnified Dock </span>
           <Highlight>→</Highlight>
         </Link>
       </Button>
@@ -46,11 +50,14 @@ export default function HomepageHero() {
           <Link href='/'>
             Browse Components
             <Highlight>
-              <Icons.Chevron />
+              <Icons.ChevronRight />
             </Highlight>
           </Link>
         </Button>
       </div>
+      <Container className='mt-16 px-6 md:px-12'>
+        <Preview />
+      </Container>
     </Hero>
   );
 }
