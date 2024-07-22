@@ -1,9 +1,10 @@
-import { ChevronLeft, ChevronRight, CodeXml, LucideIcon } from 'lucide-react';
+import { ChevronLeft, ChevronRight, CodeXml } from 'lucide-react';
 
-export type Icon = LucideIcon;
+type IconProps = React.HTMLAttributes<SVGElement>;
 
-export const TwitterIcon = () => (
+export const TwitterIcon: React.FC<IconProps> = (props) => (
   <svg
+    {...props}
     width='18'
     height='18'
     viewBox='0 0 16 16'
@@ -15,8 +16,9 @@ export const TwitterIcon = () => (
   </svg>
 );
 
-export const GithubIcon = () => (
+export const GithubIcon: React.FC<IconProps> = (props) => (
   <svg
+    {...props}
     width='18'
     height='18'
     viewBox='0 0 16 16'

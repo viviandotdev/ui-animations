@@ -3,8 +3,7 @@ import * as React from 'react';
 import '@/lib/env';
 
 import { Container } from '@/components/container';
-
-import HomepageHero from '@/app/sections/homepage-hero';
+import HomepageHero from '@/components/homepage-hero';
 export default function Homepage() {
   return (
     <>

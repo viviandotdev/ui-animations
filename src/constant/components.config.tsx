@@ -1,12 +1,11 @@
 import React, { ReactElement } from 'react';
 
-import AnimatedTabs from '@/components/previews/animated-tabs';
-import MagnifiedDock from '@/components/previews/magnified-dock';
-
 import {
   ANIMATED_TABS_CODE,
   MAGNIFIED_DOCK_CODE,
 } from '@/constant/code.config';
+import AnimatedTabs from '@/registry/core/ui/animated-tabs';
+import MagnifiedDock from '@/registry/core/ui/magnified-dock';
 
 export interface ComponentConfig {
   title: string;

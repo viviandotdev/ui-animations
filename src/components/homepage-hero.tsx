@@ -6,11 +6,10 @@ import { cn } from '@/lib/utils';
 
 import { Container } from '@/components/container';
 import Hero, { HeroSubtitle, HeroTitle } from '@/components/hero';
+import { Icons } from '@/components/icons';
+import Preview from '@/components/preview';
 import { Button, Highlight } from '@/components/ui/button';
 import Emoji from '@/components/ui/emoji';
-import { Icons } from '@/components/ui/icons';
-
-import Preview from '@/app/sections/preview';
 
 export default function HomepageHero() {
   return (

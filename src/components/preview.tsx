@@ -1,9 +1,10 @@
 'use client';
 import { AnimatePresence, motion } from 'framer-motion';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
+import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-import { Icons } from '@/components/ui/icons';
 import {
   Select,
   SelectContent,
@@ -21,8 +22,9 @@ export const Preview: React.FC = () => {
   const [direction, setDirection] = useState(0);
   const [mounted, setMounted] = useState(false);
   const components = Object.entries(COMPONENTS_CONFIG).map(
-    ([_, value], index) => ({
+    ([key, value], index) => ({
       id: index,
+      slug: key,
       ...value,
     }),
   );
@@ -137,8 +139,10 @@ export const Preview: React.FC = () => {
           <div className='text-zinc-400 text-sm font-normal leading-tight'>
             {components[index].title}
           </div>
-          <Button variant='outline'>
-            <Icons.Code className='mr-2 h-5 w-5' strokeWidth={1.8} /> View
+          <Button asChild variant='outline'>
+            <Link href={`/docs/components/${components[index].slug}`}>
+              <Icons.Code className='mr-2 h-5 w-5' strokeWidth={1.8} /> View
+            </Link>
           </Button>
         </div>
       </div>
