@@ -25,6 +25,11 @@ export const docsConfig: DocsConfig = {
           href: `/docs/components/animated-tabs`,
           items: [],
         },
+        {
+          title: 'Magnified Dock',
+          href: `/docs/components/magnified-dock`,
+          items: [],
+        },
       ],
     },
   ],

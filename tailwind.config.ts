@@ -18,6 +18,7 @@ export default {
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
+        'muted-foreground': 'hsl( 240,3.8%, 46.1%)',
         transparent: 'transparent',
         white: '#fff',
         'off-white': '#f7f8f8',
