@@ -31,9 +31,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".contentlayer/generated",
-    "contentlayer.config.ts"
+    ".contentlayer/generated"
   ],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "contentlayer.config.ts"],
   "moduleResolution": ["node_modules", ".next", "node"]
 }

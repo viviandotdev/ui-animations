@@ -6,6 +6,7 @@ import { useMDXComponent } from 'next-contentlayer/hooks';
 
 import { cn } from '@/lib/utils';
 
+import { ComponentPreview } from '@/components/component-preview';
 import { ComponentSource } from '@/components/component-source';
 // import { CopyButton } from './copy-button';
 
@@ -31,6 +32,7 @@ const components = {
   a: CustomLink,
   Image,
   ComponentSource,
+  ComponentPreview,
   Step: ({ className, ...props }: React.ComponentProps<'h3'>) => (
     <h4
       className={cn(
@@ -90,21 +92,14 @@ const components = {
 
 interface MDXProps {
   code: string;
+  className?: string;
 }
 
-export function Mdx({ code }: MDXProps) {
+export function Mdx({ code, className }: MDXProps) {
   const Component = useMDXComponent(code);
 
   return (
-    <article
-      className={cn(
-        `prose dark:prose-invert prose-gray leading-tighter tracking-tighter`,
-        // `md:prose-lg lg:prose-xl`,
-        `prose-a:font-medium prose-a:text-gray-500 prose-a:underline-offset-4 dark:hover:prose-a:text-gray-700`,
-        // `prose-pre:bg-gray-900 prose-pre:rounded-xl prose-pre:overflow-x-auto prose-pre:border prose-pre:px-0 `,
-        `prose-pre:mb-4 prose-pre:mt-6 prose-pre:max-h-[650px] prose-pre:overflow-x-auto prose-pre:rounded-lg prose-pre:border prose-pre:bg-gray-900 prose-pre:py-4 prose-pre:dark:bg-gray-900 prose-pre:px-0 prose-pre:text-sm prose-pre:tracking-tighter`,
-      )}
-    >
+    <article className={cn('max-w-[120ch] mx-auto', className)}>
       <Component
         components={{
           ...components,

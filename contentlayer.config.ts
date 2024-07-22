@@ -1,3 +1,5 @@
+/* eslint-disable simple-import-sort/imports */
+import { rehypeComponent } from './src/lib/rehype-component';
 import { defineDocumentType, makeSource } from 'contentlayer/source-files';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
@@ -39,6 +41,7 @@ export default makeSource({
     remarkPlugins: [remarkGfm],
     rehypePlugins: [
       rehypeSlug,
+      rehypeComponent,
       () => (tree) => {
         visit(tree, (node) => {
           if (node?.type === 'element' && node?.tagName === 'pre') {
@@ -67,23 +70,52 @@ export default makeSource({
         rehypePrettyCode,
         {
           theme: 'github-dark',
-
-          onVisitLine(node) {
+          onVisitLine(node: any) {
             // Prevent lines from collapsing in `display: grid` mode, and allow empty
             // lines to be copy/pasted
             if (node.children.length === 0) {
               node.children = [{ type: 'text', value: ' ' }];
             }
           },
-          // keepBackground: true,
-          onVisitHighlightedLine(node) {
+          onVisitHighlightedLine(node: any) {
             node.properties.className.push('line--highlighted');
           },
-          onVisitHighlightedWord(node) {
+          onVisitHighlightedWord(node: any) {
             node.properties.className = ['word--highlighted'];
           },
         },
       ],
+      () => (tree) => {
+        visit(tree, (node) => {
+          if (node?.type === 'element' && node?.tagName === 'div') {
+            if (!('data-rehype-pretty-code-fragment' in node.properties)) {
+              return;
+            }
+
+            const preElement = node.children.at(-1);
+            if (preElement.tagName !== 'pre') {
+              return;
+            }
+
+            preElement.properties['__withMeta__'] =
+              node.children.at(0).tagName === 'div';
+            preElement.properties['__rawString__'] = node.__rawString__;
+
+            if (node.__src__) {
+              preElement.properties['__src__'] = node.__src__;
+            }
+
+            if (node.__event__) {
+              preElement.properties['__event__'] = node.__event__;
+            }
+
+            if (node.__style__) {
+              preElement.properties['__style__'] = node.__style__;
+            }
+          }
+        });
+      },
+
       [
         rehypeAutolinkHeadings,
         {

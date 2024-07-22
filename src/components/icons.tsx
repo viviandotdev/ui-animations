@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, CodeXml } from 'lucide-react';
+import { ChevronLeft, ChevronRight, CodeXml, Loader2 } from 'lucide-react';
 
 type IconProps = React.HTMLAttributes<SVGElement>;
 
@@ -35,6 +35,7 @@ export const GithubIcon: React.FC<IconProps> = (props) => (
 );
 
 export const Icons = {
+  Spinner: Loader2,
   Twitter: TwitterIcon,
   Github: GithubIcon,
   ChevronRight: ChevronRight,

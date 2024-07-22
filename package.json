@@ -21,6 +21,7 @@
     "@radix-ui/react-scroll-area": "^1.1.0",
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-tabs": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.2",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
@@ -37,14 +38,8 @@
     "react-icons": "^5.2.1",
     "react-intersection-observer": "^9.13.0",
     "react-use-measure": "^2.1.1",
-    "rehype-autolink-headings": "^7.1.0",
-    "rehype-pretty-code": "^0.13.2",
-    "rehype-slug": "^6.0.0",
-    "remark-gfm": "^4.0.0",
-    "schema-dts": "^1.1.2",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
-    "unist-util-visit": "^5.0.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -67,7 +62,13 @@
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "tailwindcss": "^3.4.6",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.3",
+    "unist-builder": "^4.0.0",
+    "unist-util-visit": "^5.0.0",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-pretty-code": "^0.13.2",
+    "rehype-slug": "^6.0.0",
+    "remark-gfm": "^4.0.0"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
