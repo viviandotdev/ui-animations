@@ -1,14 +1,21 @@
 'use client';
-import * as React from 'react';
+import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
+import React, { useState } from 'react';
 
 import { cn } from '@/lib/utils';
+import { useTabs } from '@/hooks/use-tabs';
 
 import ComponentWrapper from '@/components/component-wrapper';
 import { CopyButton } from '@/components/copy-button';
 import { Icons } from '@/components/icons';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 import { registry } from '@/registry';
+
+const transition = {
+  type: 'tween',
+  ease: 'easeOut',
+  duration: 0.15,
+};
 
 interface ComponentPreviewProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string;
@@ -52,29 +59,11 @@ export function ComponentPreview({
     return <Component />;
   }, [name]);
 
-  return (
-    <div
-      className={cn('group relative my-4 flex flex-col space-y-2', className)}
-      {...props}
-    >
-      <Tabs defaultValue='preview' className='relative mr-auto w-full'>
-        <div className='flex items-center justify-between pb-3'>
-          <TabsList className='w-full justify-start rounded-none border-b bg-transparent p-0'>
-            <TabsTrigger
-              value='preview'
-              className='relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none'
-            >
-              Preview
-            </TabsTrigger>
-            <TabsTrigger
-              value='code'
-              className='relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none'
-            >
-              Code
-            </TabsTrigger>
-          </TabsList>
-        </div>
-        <TabsContent value='preview' className='relative rounded-md border'>
+  const tabs = [
+    {
+      label: 'Preview',
+      children: (
+        <div className='relative border rounded-xl'>
           <div className='absolute right-4 top-4'>
             <CopyButton
               value={codeString}
@@ -105,15 +94,76 @@ export function ComponentPreview({
               </React.Suspense>
             </div>
           </ComponentWrapper>
-        </TabsContent>
-        <TabsContent value='code'>
-          <div className='flex flex-col space-y-4'>
-            <div className='w-full rounded-md [&_pre]:my-0 [&_pre]:max-h-[410px] [&_pre]:overflow-auto'>
-              {Code}
-            </div>
+        </div>
+      ),
+      id: 'preview',
+    },
+    {
+      label: 'Code',
+      children: (
+        <div className='flex p-[1px] flex-col space-y-4'>
+          <div className='w-full rounded-md [&_pre]:my-0 [&_pre]:max-h-[410px] [&_pre]:overflow-auto'>
+            {Code}
           </div>
-        </TabsContent>
-      </Tabs>
+        </div>
+      ),
+      id: 'code',
+    },
+  ];
+
+  const [hookProps] = useState({
+    tabs: tabs,
+    initialTabId: 'preview',
+  });
+  const framer = useTabs(hookProps);
+  const { selectedTabIndex, setSelectedTab } = framer.tabProps;
+
+  return (
+    <div
+      className={cn('group relative my-4 flex flex-col space-y-2', className)}
+      {...props}
+    >
+      <div className='pb-3'>
+        <motion.nav className='relative z-0 flex flex-shrink-0 items-center justify-start border-b py-2'>
+          <LayoutGroup id='tabs'>
+            {tabs.map((item, i) => {
+              return (
+                <motion.button
+                  key={item.label}
+                  className={cn(
+                    'text-md relative text-muted-foreground font-semibold flex h-7 cursor-pointer select-none items-center justify-center rounded-md px-4 text-sm transition-colors',
+                    {
+                      'text-primary': selectedTabIndex === i,
+                    },
+                  )}
+                  onClick={() => {
+                    setSelectedTab([i, i > selectedTabIndex ? 1 : -1]);
+                  }}
+                >
+                  <span className='z-20'>{item.label}</span>
+
+                  <AnimatePresence>
+                    {i === selectedTabIndex ? (
+                      <motion.div
+                        key='underline'
+                        transition={transition}
+                        layoutId='underline'
+                        className={cn(
+                          'absolute bottom-[-9.5px] left-0 right-0 z-10 mr-0 border-b-2 border-gray-800',
+                        )}
+                      />
+                    ) : null}
+                  </AnimatePresence>
+                </motion.button>
+              );
+            })}
+          </LayoutGroup>
+        </motion.nav>
+      </div>
+      <div className='flex flex-col rounded-xl'>
+        {/* <div></div> */}
+        {framer.selectedTab.children}
+      </div>
     </div>
   );
 }
