@@ -149,7 +149,7 @@ export function ComponentPreview({
                         transition={transition}
                         layoutId='underline'
                         className={cn(
-                          'absolute bottom-[-9.5px] left-0 right-0 z-10 mr-0 border-b-2 border-gray-800',
+                          'absolute bottom-[-9.5px] left-0 right-0 z-10 mr-0 border-b-2 border-primary',
                         )}
                       />
                     ) : null}

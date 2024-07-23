@@ -1,18 +1,17 @@
 'use client';
-import classNames from 'classnames';
 import { motion } from 'framer-motion';
-import { useTheme } from 'next-themes';
 import React, { useEffect, useId, useState } from 'react';
+
+import { cn } from '@/lib/utils';
 
 const tabs = [
   { id: 'home', label: 'Home' },
   { id: 'projects', label: 'Projects' },
   { id: 'lab', label: 'Lab' },
-  { id: 'books', label: 'Reading' },
+  { id: 'reading', label: 'Reading' },
 ];
 
 export const AnimatedTabs: React.FC = () => {
-  const { resolvedTheme } = useTheme();
   const [activeTab, setActiveTab] = useState(tabs[0].id);
   const [mounted, setMounted] = useState(false);
   const id = useId();
@@ -23,34 +22,30 @@ export const AnimatedTabs: React.FC = () => {
 
   if (!mounted) return null;
 
-  const isDarkMode = resolvedTheme === 'dark';
-
-  const outerShadow = isDarkMode
-    ? '0px 3px 3.3px 0px #171717 inset, 0px 1px 1px 0px #2D2C2C inset'
-    : '0px 3px 3.3px 0px #E8E8E8 inset, 0px 1px 1px 0px #F7F7F7 inset';
-
-  const activeShadow = isDarkMode
-    ? '0px 3px 4px -1px rgba(0, 0, 0, 0.2), 0px -1px 2px 0px #333333 inset, 0px 0px 1px 0px #404040 inset'
-    : '0px 3px 4px -1px rgba(95, 95, 95, 0.10), 0px -1px 2px 0px #E3E3E3 inset, 0px 0px 1px 0px #D3D3D3 inset';
-
   return (
-    <div className='inset-x-0 z-50 mx-auto w-fit rounded-full border border-gray-200 shadow-sm dark:border-[#212121] dark:shadow-md'>
+    <div
+      className={cn(
+        'inset-x-0 border-gray-200 z-50 mx-auto w-fit rounded-full border shadow-sm',
+        'dark:border-[#212121] dark:shadow-md',
+      )}
+    >
       <div
-        style={{
-          boxShadow: outerShadow,
-        }}
-        className='flex space-x-4 rounded-full bg-gray-100 p-2 dark:bg-transparent'
+        className={cn(
+          'flex space-x-4 rounded-full p-2',
+          'bg-gray-100 shadow-[0px_3px_3.3px_0px_#E8E8E8_inset,0px_1px_1px_0px_#F7F7F7_inset]',
+          'dark:bg-transparent dark:shadow-[0px_3px_3.3px_0px_#171717_inset,0px_1px_1px_0px_#2D2C2C_inset]',
+        )}
       >
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={classNames(
+            className={cn(
               'relative flex cursor-pointer select-none items-center justify-center rounded-full px-4 py-2 text-base transition-colors',
               {
                 'text-black': activeTab === tab.id,
-                'text-[#878787] hover:text-black dark:hover:text-stone-300':
-                  activeTab !== tab.id,
+                'text-[#878787] hover:text-black': activeTab !== tab.id,
+                'dark:hover:text-stone-300': activeTab !== tab.id,
               },
             )}
           >
@@ -58,10 +53,11 @@ export const AnimatedTabs: React.FC = () => {
             {activeTab === tab.id && (
               <motion.div
                 layoutId={'active-tab-' + id}
-                className='absolute inset-0 z-10 rounded-full bg-white dark:bg-stone-300'
-                style={{
-                  boxShadow: activeShadow,
-                }}
+                className={cn(
+                  'absolute inset-0 z-10 rounded-full',
+                  'bg-white shadow-[0px_3px_4px_-1px_rgba(95,95,95,0.10),0px_-1px_2px_0px_#E3E3E3_inset,0px_0px_1px_0px_#D3D3D3_inset]',
+                  'dark:bg-stone-300 dark:shadow-[0px_3px_4px_-1px_rgba(0,0,0,0.2),0px_-1px_2px_0px_#333333_inset,0px_0px_1px_0px_#404040_inset]',
+                )}
                 transition={{
                   type: 'spring',
                   bounce: 0.2,
