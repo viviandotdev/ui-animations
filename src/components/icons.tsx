@@ -1,4 +1,11 @@
-import { ChevronLeft, ChevronRight, CodeXml, Loader2 } from 'lucide-react';
+import {
+  CheckIcon,
+  ChevronLeft,
+  ChevronRight,
+  Clipboard,
+  CodeXml,
+  Loader2,
+} from 'lucide-react';
 
 type IconProps = React.HTMLAttributes<SVGElement>;
 
@@ -41,4 +48,6 @@ export const Icons = {
   ChevronRight: ChevronRight,
   ChevronLeft: ChevronLeft,
   Code: CodeXml,
+  Check: CheckIcon,
+  Clipboard: Clipboard,
 };

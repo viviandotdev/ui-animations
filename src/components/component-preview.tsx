@@ -4,6 +4,7 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 import ComponentWrapper from '@/components/component-wrapper';
+import { CopyButton } from '@/components/copy-button';
 import { Icons } from '@/components/icons';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -11,18 +12,27 @@ import { registry } from '@/registry';
 
 interface ComponentPreviewProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string;
-  // align?: 'center' | 'start' | 'end';
+  align?: 'center' | 'start' | 'end';
 }
 
 export function ComponentPreview({
   name,
   children,
   className,
-  // align = 'center',
+  align = 'center',
   ...props
 }: ComponentPreviewProps) {
   const Codes = React.Children.toArray(children) as React.ReactElement[];
   const Code = Codes[0];
+
+  const codeString = React.useMemo(() => {
+    if (typeof Code?.props['data-rehype-pretty-code-figure'] !== 'undefined') {
+      const [Button] = React.Children.toArray(
+        Code.props.children,
+      ) as React.ReactElement[];
+      return Button?.props?.value || Button?.props?.__rawString__ || null;
+    }
+  }, [Code]);
 
   const Preview = React.useMemo(() => {
     const Component = registry[name]?.component;
@@ -64,18 +74,36 @@ export function ComponentPreview({
             </TabsTrigger>
           </TabsList>
         </div>
-        <TabsContent value='preview' className='relative rounded-md'>
+        <TabsContent value='preview' className='relative rounded-md border'>
+          <div className='absolute right-4 top-4'>
+            <CopyButton
+              value={codeString}
+              variant='outline'
+              className='h-7 w-7 text-foreground opacity-100 hover:bg-muted hover:text-foreground [&_svg]:h-3.5 [&_svg]:w-3.5'
+            />
+          </div>
           <ComponentWrapper>
-            <React.Suspense
-              fallback={
-                <div className='flex items-center text-sm text-muted-foreground'>
-                  <Icons.Spinner className='mr-2 h-4 w-4 animate-spin' />
-                  Loading...
-                </div>
-              }
+            <div
+              className={cn(
+                'preview flex min-h-[250px] w-full justify-center p-10',
+                {
+                  'items-center': align === 'center',
+                  'items-start': align === 'start',
+                  'items-end': align === 'end',
+                },
+              )}
             >
-              {Preview}
-            </React.Suspense>
+              <React.Suspense
+                fallback={
+                  <div className='flex items-center text-sm text-muted-foreground'>
+                    <Icons.Spinner className='mr-2 h-4 w-4 animate-spin' />
+                    Loading...
+                  </div>
+                }
+              >
+                {Preview}
+              </React.Suspense>
+            </div>
           </ComponentWrapper>
         </TabsContent>
         <TabsContent value='code'>

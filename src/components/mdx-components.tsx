@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 
 import { ComponentPreview } from '@/components/component-preview';
 import { ComponentSource } from '@/components/component-source';
+import { CopyButton } from '@/components/copy-button';
 // import { CopyButton } from './copy-button';
 
 const CustomLink = (props: any) => {
@@ -51,16 +52,10 @@ const components = {
   pre: ({
     className,
     __rawString__,
-    __npmCommand__,
-    __pnpmCommand__,
-    __yarnCommand__,
     __withMeta__,
     __src__,
-    __event__,
-    __style__,
     ...props
   }: React.HTMLAttributes<HTMLPreElement> & {
-    // __style__?: Style["name"]
     __rawString__?: string;
     __withMeta__?: boolean;
     __src__?: string;
@@ -75,16 +70,13 @@ const components = {
           )}
           {...props}
         />
-        {/* {__npmCommand__ && __yarnCommand__ && __pnpmCommand__ && (
-          <CopyNpmCommandButton
-            commands={{
-              __npmCommand__,
-              __pnpmCommand__,
-              __yarnCommand__,
-            }}
-            className={cn("absolute right-4 top-4", __withMeta__ && "top-16")}
+        {__rawString__ && (
+          <CopyButton
+            value={__rawString__}
+            src={__src__}
+            className={cn('absolute right-4 top-4', __withMeta__ && 'top-16')}
           />
-        )} */}
+        )}
       </>
     );
   },

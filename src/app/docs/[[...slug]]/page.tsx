@@ -1,6 +1,8 @@
 import { allDocs } from 'contentlayer/generated';
 import { notFound } from 'next/navigation';
 
+import '@/styles/mdx.css';
+
 import { cn } from '@/lib/utils';
 
 import { Icons } from '@/components/icons';
@@ -47,6 +49,7 @@ const DocPage: React.FC<DocPageProps> = async ({ params }) => {
             </p>
           )}
         </div>
+
         {/* {doc.links ? (
           <div className='flex items-center space-x-2 pt-4'>
             {doc.links?.doc && (
