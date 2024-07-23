@@ -16,9 +16,17 @@ export default {
         'navigation-height': 'var(--navigation-height)',
       },
       colors: {
+        border: 'hsl(var(--border))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
-        'muted-foreground': 'hsl( 240,3.8%, 46.1%)',
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
+        },
         transparent: 'transparent',
         white: '#fff',
         'off-white': '#f7f8f8',
