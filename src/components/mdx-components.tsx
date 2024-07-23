@@ -9,7 +9,6 @@ import { cn } from '@/lib/utils';
 import { ComponentPreview } from '@/components/component-preview';
 import { ComponentSource } from '@/components/component-source';
 import { CopyButton } from '@/components/copy-button';
-// import { CopyButton } from './copy-button';
 
 const CustomLink = (props: any) => {
   const href = props.href;

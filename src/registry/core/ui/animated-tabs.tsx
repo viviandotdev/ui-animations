@@ -2,7 +2,7 @@
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useId, useState } from 'react';
 
 const tabs = [
   { id: 'home', label: 'Home' },
@@ -15,6 +15,7 @@ export const AnimatedTabs: React.FC = () => {
   const { resolvedTheme } = useTheme();
   const [activeTab, setActiveTab] = useState(tabs[0].id);
   const [mounted, setMounted] = useState(false);
+  const id = useId();
 
   useEffect(() => {
     setMounted(true);
@@ -56,7 +57,7 @@ export const AnimatedTabs: React.FC = () => {
             <span className='relative z-20'>{tab.label}</span>
             {activeTab === tab.id && (
               <motion.div
-                layoutId='activeTab'
+                layoutId={'active-tab-' + id}
                 className='absolute inset-0 z-10 rounded-full bg-white dark:bg-stone-300'
                 style={{
                   boxShadow: activeShadow,

@@ -20,7 +20,7 @@ export default function HomepageHero() {
         size='sm'
         asChild
       >
-        <Link href='/' target='_blank'>
+        <Link href='/docs/components/magnified-dock'>
           <Emoji label='sparkles' symbol='✨' />{' '}
           <span className='ml-2'>New: Introducing Magnified Dock </span>
           <Highlight>→</Highlight>
@@ -46,7 +46,7 @@ export default function HomepageHero() {
           size='lg'
           asChild
         >
-          <Link href='/'>
+          <Link href='/docs/components/animated-tabs'>
             Browse Components
             <Highlight>
               <Icons.ChevronRight />

@@ -15,26 +15,25 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-import { COMPONENTS_CONFIG } from '@/constant/components.config';
+import { registry } from '@/registry';
+import { RegistryEntry } from '@/registry/schema';
 
 export const Preview: React.FC = () => {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [mounted, setMounted] = useState(false);
-  const components = Object.entries(COMPONENTS_CONFIG).map(
-    ([key, value], index) => ({
-      id: index,
-      slug: key,
+  const uiComponents: RegistryEntry[] = Object.entries(registry)
+    .filter(([_, value]) => value.type === 'components:ui')
+    .map(([_, value]) => ({
       ...value,
-    }),
-  );
+    }));
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   const nextStep = () => {
-    if (index < components.length - 1) {
+    if (index < uiComponents.length - 1) {
       setDirection(1);
       setIndex((prevIndex) => prevIndex + 1);
     }
@@ -63,6 +62,24 @@ export const Preview: React.FC = () => {
     },
   };
 
+  const Preview = React.useMemo(() => {
+    const Component = uiComponents[index].component;
+
+    if (!Component) {
+      return (
+        <p className='text-sm text-muted-foreground'>
+          Component{' '}
+          <code className='relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm'>
+            {uiComponents[index].name}
+          </code>{' '}
+          not found in registry.
+        </p>
+      );
+    }
+
+    return <Component />;
+  }, [index, uiComponents]);
+
   return (
     <div className='flex justify-center items-center bg-white/opacity-0 rounded-2xl shadow border dark:border-zinc-800 p-4'>
       <div className='flex flex-col justify-end items-start gap-4 bg-[#F8F8F8] dark:bg-[#242424] rounded-xl dark:shadow dark:border dark:border-zinc-800 p-6 w-full h-full'>
@@ -73,17 +90,17 @@ export const Preview: React.FC = () => {
               onValueChange={(value: string) => setIndex(parseInt(value))}
             >
               <SelectTrigger className='w-fit gap-2'>
-                <SelectValue placeholder={components[0].title}>
-                  {mounted ? components[index].title : components[0].title}
+                <SelectValue placeholder={uiComponents[0].name}>
+                  {mounted ? uiComponents[index].name : uiComponents[0].name}
                 </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Animations</SelectLabel>
-                  {components.map((component, i) => {
+                  {uiComponents.map((component, i) => {
                     return (
                       <SelectItem key={i} value={i.toString()}>
-                        {component.title}
+                        {component.name}
                       </SelectItem>
                     );
                   })}
@@ -105,7 +122,7 @@ export const Preview: React.FC = () => {
                 onClick={nextStep}
                 variant='outline'
                 size='icon'
-                disabled={index === components.length - 1}
+                disabled={index === uiComponents.length - 1}
               >
                 <Icons.ChevronRight className='h-5 w-5' />
                 <span className='sr-only'>Next</span>
@@ -131,16 +148,16 @@ export const Preview: React.FC = () => {
               }}
               className='absolute inset-0 flex items-center justify-center'
             >
-              {React.cloneElement(components[index].preview)}
+              {Preview}
             </motion.div>
           </AnimatePresence>
         </div>
         <div className='flex justify-between items-center w-full'>
           <div className='text-zinc-400 text-sm font-normal leading-tight'>
-            {components[index].title}
+            {uiComponents[index].name}
           </div>
           <Button asChild variant='outline'>
-            <Link href={`/docs/components/${components[index].slug}`}>
+            <Link href={`/docs/components/${uiComponents[index].name}`}>
               <Icons.Code className='mr-2 h-5 w-5' strokeWidth={1.8} /> View
             </Link>
           </Button>
