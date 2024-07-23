@@ -103,7 +103,7 @@ function AppIcon({ mouseX, item }: { mouseX: MotionValue; item: DockItem }) {
               width,
               height: width,
             }}
-            className='flex cursor-pointer items-center justify-center rounded-md bg-gray-100 dark:bg-zinc-900'
+            className='flex cursor-pointer items-center justify-center rounded-md bg-gray-100 dark:bg-zinc-900 dark:border dark:border-zinc-800'
           >
             <motion.div
               className='relative overflow-hidden rounded-full'
@@ -124,7 +124,7 @@ function AppIcon({ mouseX, item }: { mouseX: MotionValue; item: DockItem }) {
             </motion.div>
           </motion.div>
         </TooltipTrigger>
-        <TooltipContent className='mb-1 h-8 border px-2 py-1.5'>
+        <TooltipContent className='bg-white text-black shadow-sm dark:bg-black dark:text-white mb-1 h-8 border px-2 py-1.5'>
           <p>{item.title}</p>
         </TooltipContent>
       </Tooltip>

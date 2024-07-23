@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Registry } from '@/registry/schema';
-
+// Component Source
 const ui: Registry = {
   'animated-tabs': {
     name: 'animated-tabs',
@@ -15,21 +15,22 @@ const ui: Registry = {
   },
 };
 
+// Component Preview
 const example: Registry = {
   'magnified-dock-demo': {
     name: 'magnified-dock-demo',
     type: 'components:example',
-    files: ['src/registry/core/example/magnified-dock-demo.tsx'],
+    files: ['src/registry/core/ui/magnified-dock.tsx'], //code file
     component: React.lazy(
-      () => import('@/registry/core/example/magnified-dock-demo'),
+      () => import('@/registry/core/example/magnified-dock-demo'), //demo file
     ),
   },
   'animated-tabs-demo': {
     name: 'animated-tabs-demo',
     type: 'components:example',
-    files: ['src/registry/core/example/animated-tabs-demo.tsx'],
+    files: ['src/registry/core/ui/animated-tabs.tsx'], //code file
     component: React.lazy(
-      () => import('@/registry/core/example/animated-tabs-demo'),
+      () => import('@/registry/core/example/animated-tabs-demo'), //demo file
     ),
   },
 };

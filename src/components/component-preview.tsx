@@ -108,7 +108,7 @@ export function ComponentPreview({
         </TabsContent>
         <TabsContent value='code'>
           <div className='flex flex-col space-y-4'>
-            <div className='w-full rounded-md [&_pre]:my-0 [&_pre]:max-h-[350px] [&_pre]:overflow-auto'>
+            <div className='w-full rounded-md [&_pre]:my-0 [&_pre]:max-h-[410px] [&_pre]:overflow-auto'>
               {Code}
             </div>
           </div>

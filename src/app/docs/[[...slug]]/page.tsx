@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 
 import { Icons } from '@/components/icons';
 import { Mdx } from '@/components/mdx-components';
+import DocsPager from '@/components/pager';
 
 interface DocPageProps {
   params: {
@@ -49,37 +50,31 @@ const DocPage: React.FC<DocPageProps> = async ({ params }) => {
             </p>
           )}
         </div>
-
-        {/* {doc.links ? (
-          <div className='flex items-center space-x-2 pt-4'>
-            {doc.links?.doc && (
-              <Link
-                href={doc.links.doc}
-                target='_blank'
-                rel='noreferrer'
-                className={cn(badgeVariants({ variant: 'secondary' }), 'gap-1')}
-              >
-                Docs
-                <ExternalLinkIcon className='size-3' />
-              </Link>
-            )}
-            {doc.links?.api && (
-              <Link
-                href={doc.links.api}
-                target='_blank'
-                rel='noreferrer'
-                className={cn(badgeVariants({ variant: 'secondary' }), 'gap-1')}
-              >
-                API Reference
-                <ExternalLinkIcon className='size-3' />
-              </Link>
-            )}
-          </div>
-        ) : null} */}
-        <div className='pb-12 pt-8'>
+        <div className='pb-8 pt-8'>
           <Mdx code={doc.body.code} />
         </div>
-        {/* <DocPager doc={doc} /> */}
+        <section>
+          <h2 className='mb-1 text-lg font-semibold'>Resources</h2>
+          <p className='mb-4 text-sm text-muted-foreground'>
+            Some links for inspiration.
+          </p>
+          <ul className='list-disc space-y-2 pl-6'>
+            {doc.resources &&
+              doc.resources.map((link, index: number) => (
+                <li key={index}>
+                  <a
+                    href={link.url}
+                    className='text-sm font-medium text-primary'
+                  >
+                    {link.key}
+                  </a>
+                </li>
+              ))}
+          </ul>
+        </section>
+        <div className='mt-12'>
+          <DocsPager doc={doc} />
+        </div>
       </div>
     </main>
   );

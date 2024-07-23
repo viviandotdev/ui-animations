@@ -1,16 +1,29 @@
 /* eslint-disable simple-import-sort/imports */
 import { rehypeComponent } from './src/lib/rehype-component';
-import { defineDocumentType, makeSource } from 'contentlayer/source-files';
+import {
+  defineDocumentType,
+  defineNestedType,
+  makeSource,
+} from 'contentlayer/source-files';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 import { visit } from 'unist-util-visit';
 
+const LinksProperties = defineNestedType(() => ({
+  name: 'LinksProperties',
+  fields: {
+    key: { type: 'string', required: true },
+    url: { type: 'string', required: true },
+  },
+}));
+
 export const Doc = defineDocumentType(() => ({
   name: 'Doc',
   filePathPattern: `docs/**/*.mdx`,
   contentType: 'mdx',
+
   fields: {
     title: { type: 'string', required: true },
     date: { type: 'date', required: true },
@@ -21,6 +34,10 @@ export const Doc = defineDocumentType(() => ({
     author: { type: 'string', required: true },
     published: { type: 'boolean', required: false, default: true },
     toc: { type: 'boolean', default: true, required: false },
+    resources: {
+      type: 'list',
+      of: LinksProperties,
+    },
   },
   computedFields: {
     slug: {
