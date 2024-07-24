@@ -30,6 +30,11 @@ export const docsConfig: DocsConfig = {
           href: `/docs/components/magnified-dock`,
           items: [],
         },
+        {
+          title: 'Multi Step Component',
+          href: `/docs/components/multi-step-component`,
+          items: [],
+        },
       ],
     },
   ],

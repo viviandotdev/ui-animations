@@ -15,6 +15,14 @@ const ui: Registry = {
     files: ['src/registry/core/ui/magnified-dock.tsx'],
     component: React.lazy(() => import('@/registry/core/ui/magnified-dock')),
   },
+  'multi-step-component': {
+    name: 'multi-step-component',
+    type: 'components:ui',
+    files: ['src/registry/core/ui/multi-step-component.tsx'],
+    component: React.lazy(
+      () => import('@/registry/core/ui/multi-step-component'),
+    ),
+  },
 };
 
 // const example: Registry = {
