@@ -84,9 +84,12 @@ export default makeSource({
         });
       },
       [
+        //vesper
+
+        //vitesse-light
         rehypePrettyCode,
         {
-          theme: 'github-dark',
+          theme: 'vesper',
           onVisitLine(node: any) {
             // Prevent lines from collapsing in `display: grid` mode, and allow empty
             // lines to be copy/pasted

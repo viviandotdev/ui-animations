@@ -59,7 +59,7 @@ export default function Dock() {
         onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
         className={classNames(
-          'mx-auto flex h-16 items-end gap-2 rounded-full dark:bg-black bg-white px-4 pb-3 shadow',
+          'mx-auto flex h-16 items-end gap-2 rounded-full dark:bg-black dark:border bg-white px-4 pb-3 shadow',
         )}
       >
         {gradients.slice(0, 3).map((item, index) => (

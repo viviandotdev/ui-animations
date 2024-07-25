@@ -16,7 +16,7 @@
 
   .dark {
     --navigation-height: 3.6rem;
-    --background: 0, 0%, 9%;
+    --background: 0, 0%, 0%;
     --foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
