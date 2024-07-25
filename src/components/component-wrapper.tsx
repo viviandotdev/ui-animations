@@ -8,7 +8,7 @@ const ComponentWrapper = ({ className, children }: ComponentWrapperProps) => {
   return (
     <div
       className={cn(
-        'relative rounded-xl md:p-20 p-10 flex justify-center items-center flex-col w-full',
+        'relative rounded-xl py-10 md:py-20 flex justify-center items-center flex-col w-full',
         className,
       )}
     >

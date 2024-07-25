@@ -14,16 +14,14 @@ const buttonVariants = cva(
           'text-zinc-50 bg-zinc-900 border rounded-lg',
           '[&_.highlight]:ml-2',
         ],
-        secondary: [
-          'dark:border-transparent-white dark:text-off-white dark:bg-white dark:bg-opacity-10',
-          'text-gray-400 bg-opacity-0 border-gray-200',
-          'border backdrop-filter-[12px] transition duration-300 hover:shadow-[inset_0_-7px_11px_#cccccc1f] ease-in',
-          '[&_.highlight]:bg-transparent-white [&_.highlight]:rounded-full [&_.highlight]:px-2 [&_.highlight:last-child]:ml-2 [&_.highlight:last-child]:-mr-2 [&_.highlight:first-child]:-ml-2 [&_.highlight:first-child]:mr-2',
-        ],
         default:
           'bg-zinc-900 text-zinc-50 hover:bg-zinc-900/90 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-50/90',
+        destructive:
+          'bg-red-500 text-zinc-50 hover:bg-red-500/90 dark:bg-red-900 dark:text-zinc-50 dark:hover:bg-red-900/90',
         outline:
           'border border-zinc-200 bg-white hover:bg-zinc-100 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:bg-zinc-800 dark:hover:text-zinc-50',
+        secondary:
+          'bg-zinc-100 text-zinc-900 hover:bg-zinc-100/80 dark:bg-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-800/80',
         ghost:
           'hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-50',
         link: 'text-zinc-900 underline-offset-4 hover:underline dark:text-zinc-50',
@@ -45,6 +43,7 @@ const buttonVariants = cva(
 export const Highlight = ({ children }: { children: React.ReactNode }) => (
   <span className='highlight'>{children}</span>
 );
+
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {

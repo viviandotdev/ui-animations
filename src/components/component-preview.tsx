@@ -74,7 +74,7 @@ export function ComponentPreview({
           <ComponentWrapper>
             <div
               className={cn(
-                'preview flex min-h-[250px] w-full justify-center p-10',
+                'preview flex min-h-[250px] w-full justify-center ',
                 {
                   'items-center': align === 'center',
                   'items-start': align === 'start',
@@ -125,7 +125,7 @@ export function ComponentPreview({
     >
       <div className='pb-3'>
         <motion.nav className='relative z-0 flex flex-shrink-0 items-center justify-start border-b py-2'>
-          <LayoutGroup id='tabs'>
+          <LayoutGroup id={tabs + name}>
             {tabs.map((item, i) => {
               return (
                 <motion.button

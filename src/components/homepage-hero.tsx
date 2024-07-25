@@ -15,8 +15,14 @@ export default function HomepageHero() {
   return (
     <Hero>
       <Button
-        className='rounded-full translate-y-[-1rem] animate-fade-in opacity-0'
-        variant='secondary'
+        variant={null}
+        className={cn(
+          'border backdrop-filter-[12px] transition duration-300 hover:shadow-[inset_0_-7px_11px_#cccccc1f] ease-in',
+          'rounded-full translate-y-[-1rem] animate-fade-in opacity-0',
+          'dark:border-transparent-white dark:text-off-white dark:bg-white dark:bg-opacity-10',
+          'text-gray-400 bg-opacity-0 border-gray-200',
+          '[&_.highlight]:bg-transparent-white [&_.highlight]:rounded-full [&_.highlight]:px-2 [&_.highlight:last-child]:ml-2 [&_.highlight:last-child]:-mr-2 [&_.highlight:first-child]:-ml-2 [&_.highlight:first-child]:mr-2',
+        )}
         size='sm'
         asChild
       >

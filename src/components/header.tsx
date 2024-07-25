@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 
 export const Header = () => {
   return (
-    <header className='z-10 fixed top-0 left-0 w-full border-b border-gray-50 dark:border-transparent-white backdrop-blur-[12px]'>
+    <header className='z-20 fixed top-0 left-0 w-full border-b border-gray-50 dark:border-transparent-white backdrop-blur-[12px]'>
       <Container className='flex h-navigation-height '>
         <Link className='flex items-center text-md' href='/'>
           {/* <Logo className='mr-4 h-[1.8rem] w-[1.8rem]' /> */}
