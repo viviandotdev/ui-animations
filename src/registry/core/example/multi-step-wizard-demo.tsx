@@ -1,12 +1,12 @@
 'use client';
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
-import { ComponentProps } from 'react';
 
 import { cn } from '@/lib/utils';
 
 import { Button } from '@/components/ui/button';
 
+import AnimatedCheckbox from '@/registry/core/ui/animated-checkbox';
 import { MultiStepComponent } from '@/registry/core/ui/multi-step-component';
 
 const MultiStepWizardDemo = () => {
@@ -190,39 +190,17 @@ function Step({ step, currentStep }: { step: number; currentStep: number }) {
       >
         <div className='flex items-center justify-center'>
           {status === 'complete' ? (
-            <CheckIcon className='h-6 w-6 text-white' />
+            <AnimatedCheckbox
+              delay={0.2}
+              isChecked={status === 'complete'}
+              className='h-6 w-6 text-white'
+            />
           ) : (
             <span>{step + 1}</span>
           )}
         </div>
       </motion.div>
     </motion.div>
-  );
-}
-
-function CheckIcon(props: ComponentProps<'svg'>) {
-  return (
-    <svg
-      {...props}
-      fill='none'
-      viewBox='0 0 24 24'
-      stroke='currentColor'
-      strokeWidth={3}
-    >
-      <motion.path
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{
-          delay: 0.2,
-          type: 'tween',
-          ease: 'easeOut',
-          duration: 0.3,
-        }}
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        d='M5 13l4 4L19 7'
-      />
-    </svg>
   );
 }
 

@@ -20,9 +20,22 @@ const ui: Registry = {
     type: 'components:ui',
     files: ['src/registry/core/ui/multi-step-component.tsx'],
   },
+  'animated-checkbox': {
+    name: 'animated-checkbox',
+    type: 'components:ui',
+    files: ['src/registry/core/ui/animated-checkbox.tsx'],
+  },
 };
 
 const example: Registry = {
+  'copy-button-demo': {
+    name: 'copy-button-demo',
+    type: 'components:example',
+    files: ['src/registry/core/example/copy-button-demo.tsx'], //code file
+    component: React.lazy(
+      () => import('@/registry/core/example/copy-button-demo'), //demo component
+    ),
+  },
   'multi-step-survey-demo': {
     name: 'multi-step-survey-demo',
     type: 'components:example',

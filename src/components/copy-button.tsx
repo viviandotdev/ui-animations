@@ -14,6 +14,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
+import AnimatedCheckbox from '@/registry/core/ui/animated-checkbox';
+
 interface Event {
   name: string;
   properties?: Record<string, any>;
@@ -41,10 +43,28 @@ export function CopyButton({
   const [hasCopied, setHasCopied] = React.useState(false);
 
   React.useEffect(() => {
-    setTimeout(() => {
-      setHasCopied(false);
-    }, 2000);
+    if (hasCopied) {
+      const timer = setTimeout(() => {
+        setHasCopied(false);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
   }, [hasCopied]);
+
+  const handleCopy = React.useCallback(() => {
+    copyToClipboardWithMeta(
+      value,
+      event
+        ? {
+            name: event,
+            properties: {
+              code: value,
+            },
+          }
+        : undefined,
+    );
+    setHasCopied(true);
+  }, [value, event]);
 
   return (
     <Button
@@ -54,32 +74,18 @@ export function CopyButton({
         'relative z-10 h-6 w-6 text-zinc-50 hover:bg-background hover:text-zinc-50',
         className,
       )}
-      onClick={() => {
-        copyToClipboardWithMeta(
-          value,
-          event
-            ? {
-                name: event,
-                properties: {
-                  code: value,
-                },
-              }
-            : undefined,
-        );
-        setHasCopied(true);
-      }}
+      onClick={handleCopy}
       {...props}
     >
       <span className='sr-only'>Copy</span>
       {hasCopied ? (
-        <Icons.Check className='h-3 w-3' />
+        <AnimatedCheckbox isChecked={hasCopied} className='h-3 w-3' />
       ) : (
         <Icons.Clipboard className='h-3 w-3' />
       )}
     </Button>
   );
 }
-
 interface CopyWithClassNamesProps extends DropdownMenuTriggerProps {
   value: string;
   classNames: string;

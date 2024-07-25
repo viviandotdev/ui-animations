@@ -35,6 +35,11 @@ export const docsConfig: DocsConfig = {
           href: `/docs/components/multi-step-component`,
           items: [],
         },
+        {
+          title: 'Animated Checkbox',
+          href: `/docs/components/animated-checkbox`,
+          items: [],
+        },
       ],
     },
   ],
