@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -7,34 +7,44 @@ import { Button, ButtonProps } from '@/components/ui/button';
 
 import AnimatedCheckbox from '@/registry/core/ui/animated-checkbox';
 
-interface CopyButtonDemoProps extends ButtonProps {
+interface CopyButtonProps extends ButtonProps {
   value: string;
 }
 
-async function copyToClipboardWithMeta(value: string) {
-  navigator.clipboard.writeText(value);
-}
+const COPY_TIMEOUT = 2000;
+const ANIMATION_DURATION = 300;
 
-export function CopyButtonDemo({
+const copyToClipboard = async (value: string): Promise<void> => {
+  await navigator.clipboard.writeText(value);
+};
+
+export const CopyButton: React.FC<CopyButtonProps> = ({
   value,
   className,
   variant = 'outline',
   ...props
-}: CopyButtonDemoProps) {
-  const [hasCopied, setHasCopied] = React.useState(false);
+}) => {
+  const [hasCopied, setHasCopied] = useState(false);
+  const [showClipboard, setShowClipboard] = useState(true);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (hasCopied) {
-      const timer = setTimeout(() => {
+      const copyTimer = setTimeout(() => {
         setHasCopied(false);
-      }, 2000);
-      return () => clearTimeout(timer);
+        const clipboardTimer = setTimeout(() => {
+          setShowClipboard(true);
+        }, ANIMATION_DURATION);
+        return () => clearTimeout(clipboardTimer);
+      }, COPY_TIMEOUT);
+
+      return () => clearTimeout(copyTimer);
     }
   }, [hasCopied]);
 
-  const handleCopy = React.useCallback(() => {
-    copyToClipboardWithMeta(value);
+  const handleCopy = useCallback(async () => {
+    await copyToClipboard(value);
     setHasCopied(true);
+    setShowClipboard(false);
   }, [value]);
 
   return (
@@ -42,19 +52,28 @@ export function CopyButtonDemo({
       size='icon'
       variant={variant}
       className={cn(
-        '[&_svg]:h-3.5 [&_svg]:w-3.5 relative z-10 h-7 w-7 text-zinc-50 hover:bg-background hover:text-zinc-50',
+        'relative z-10 flex h-7 w-7 items-center [&_svg]:h-3.5 [&_svg]:w-3.5',
         className,
       )}
       onClick={handleCopy}
       {...props}
     >
       <span className='sr-only'>Copy</span>
-      {hasCopied ? (
-        <AnimatedCheckbox isChecked={hasCopied} className='h-3 w-3' />
-      ) : (
-        <Icons.Clipboard className='h-3 w-3' />
-      )}
+      <IconWrapper>
+        <AnimatedCheckbox
+          duration={ANIMATION_DURATION / 1000}
+          isChecked={hasCopied}
+        />
+      </IconWrapper>
+      <IconWrapper>{showClipboard && <Icons.Clipboard />}</IconWrapper>
     </Button>
   );
-}
-export default CopyButtonDemo;
+};
+
+const IconWrapper: React.FC<React.PropsWithChildren> = ({ children }) => (
+  <div className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white'>
+    {children}
+  </div>
+);
+
+export default CopyButton;

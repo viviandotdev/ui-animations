@@ -5,6 +5,7 @@ import {
   Clipboard,
   CodeXml,
   Loader2,
+  PlusIcon,
 } from 'lucide-react';
 
 type IconProps = React.HTMLAttributes<SVGElement>;
@@ -50,4 +51,5 @@ export const Icons = {
   Code: CodeXml,
   Check: CheckIcon,
   Clipboard: Clipboard,
+  Plus: PlusIcon,
 };

@@ -13,31 +13,41 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
   className,
   delay = 0,
   duration = 0.3,
-  ...props
 }) => {
   return (
-    <svg
-      className={className}
+    <motion.svg
+      xmlns='http://www.w3.org/2000/svg'
       fill='none'
       viewBox='0 0 24 24'
+      strokeWidth='3.5'
       stroke='currentColor'
-      strokeWidth={3}
-      {...props}
+      className={className}
+      initial={false}
+      animate={isChecked ? 'checked' : 'unchecked'}
     >
       <motion.path
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: isChecked ? 1 : 0 }}
-        transition={{
-          delay: delay,
-          type: 'tween',
-          ease: 'easeOut',
-          duration: duration,
-        }}
         strokeLinecap='round'
         strokeLinejoin='round'
-        d='M5 13l4 4L19 7'
+        d='M4.5 12.75l6 6 9-13.5'
+        variants={{
+          checked: {
+            pathLength: 1,
+            opacity: 1,
+            transition: {
+              duration,
+              delay: delay,
+            },
+          },
+          unchecked: {
+            pathLength: 0,
+            opacity: 0,
+            transition: {
+              duration,
+            },
+          },
+        }}
       />
-    </svg>
+    </motion.svg>
   );
 };
 

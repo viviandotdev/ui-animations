@@ -40,6 +40,11 @@ export const docsConfig: DocsConfig = {
           href: `/docs/components/animated-checkbox`,
           items: [],
         },
+        {
+          title: 'Animated List',
+          href: `/docs/components/animated-list`,
+          items: [],
+        },
       ],
     },
   ],
