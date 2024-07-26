@@ -36,8 +36,8 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
-          title: 'Animated Checkbox',
-          href: `/docs/components/animated-checkbox`,
+          title: 'Animated Check',
+          href: `/docs/components/animated-check`,
           items: [],
         },
         {

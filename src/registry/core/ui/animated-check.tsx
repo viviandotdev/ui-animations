@@ -1,14 +1,14 @@
 import { motion } from 'framer-motion';
 import React, { ComponentProps } from 'react';
 
-interface AnimatedCheckboxProps extends ComponentProps<'svg'> {
+interface AnimatedCheckProps extends ComponentProps<'svg'> {
   isChecked: boolean;
   className?: string;
   delay?: number;
   duration?: number;
 }
 
-export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
+export const AnimatedCheck: React.FC<AnimatedCheckProps> = ({
   isChecked,
   className,
   delay = 0,
@@ -22,7 +22,7 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
       strokeWidth='3.5'
       stroke='currentColor'
       className={className}
-      initial={false}
+      initial={true}
       animate={isChecked ? 'checked' : 'unchecked'}
     >
       <motion.path
@@ -51,4 +51,4 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
   );
 };
 
-export default AnimatedCheckbox;
+export default AnimatedCheck;

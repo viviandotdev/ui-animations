@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 import { Icons } from '@/components/icons';
 
-import AnimatedCheckbox from '@/registry/core/ui/animated-checkbox';
+import AnimatedCheck from '@/registry/core/ui/animated-check';
 
 export const seeds = [
   'Buy groceries',
@@ -120,7 +120,7 @@ const TodoItem: React.FC<{
               onChange={handleToggle}
             />
             <div className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white'>
-              <AnimatedCheckbox isChecked={isChecked} className='h-3.5 w-3.5' />
+              <AnimatedCheck isChecked={isChecked} className='h-3.5 w-3.5' />
             </div>
           </button>
         </div>

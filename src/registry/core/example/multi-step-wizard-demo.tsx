@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 
 import { Button } from '@/components/ui/button';
 
-import AnimatedCheckbox from '@/registry/core/ui/animated-checkbox';
+import AnimatedCheck from '@/registry/core/ui/animated-check';
 import { MultiStepComponent } from '@/registry/core/ui/multi-step-component';
 
 const MultiStepWizardDemo = () => {
@@ -189,20 +189,27 @@ function Step({ step, currentStep }: { step: number; currentStep: number }) {
         className='relative flex h-10 w-10 items-center justify-center rounded-full border-2 font-semibold'
       >
         <div className='flex items-center justify-center'>
-          {status === 'complete' ? (
-            <AnimatedCheckbox
+          <IconWrapper>
+            <AnimatedCheck
               delay={0.2}
               isChecked={status === 'complete'}
               className='h-6 w-6 text-white'
             />
-          ) : (
-            <span>{step + 1}</span>
-          )}
+          </IconWrapper>
+          <IconWrapper>
+            {status !== 'complete' && <span>{step + 1}</span>}
+          </IconWrapper>
         </div>
       </motion.div>
     </motion.div>
   );
 }
+
+const IconWrapper: React.FC<React.PropsWithChildren> = ({ children }) => (
+  <div className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
+    {children}
+  </div>
+);
 
 const Skeleton = ({ className, ...props }: { className: string }) => (
   <div

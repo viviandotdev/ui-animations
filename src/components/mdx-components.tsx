@@ -126,8 +126,11 @@ const components = {
         {__rawString__ && (
           <CopyButton
             value={__rawString__}
-            src={__src__}
-            className={cn('absolute right-4 top-4', __withMeta__ && 'top-16')}
+            variant='outline'
+            className={cn(
+              'absolute right-4 top-4 h-7 w-7 text-foreground opacity-100 hover:bg-muted hover:text-foreground [&_svg]:h-3.5 [&_svg]:w-3.5',
+              __withMeta__ && 'top-16',
+            )}
           />
         )}
       </>

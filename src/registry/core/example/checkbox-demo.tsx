@@ -1,10 +1,10 @@
 'use client';
-import { motion } from 'framer-motion';
+import { motion, MotionConfig } from 'framer-motion';
 import React, { useState } from 'react';
 
 import { cn } from '@/lib/utils';
 
-import AnimatedCheckbox from '@/registry/core/ui/animated-checkbox';
+import AnimatedCheck from '@/registry/core/ui/animated-check';
 
 export const CheckboxDemo = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -18,33 +18,29 @@ export const CheckboxDemo = () => {
           onChange={() => setIsChecked(!isChecked)}
         />
         <div className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white'>
-          <AnimatedCheckbox isChecked={isChecked} className='h-3.5 w-3.5' />
+          <AnimatedCheck isChecked={isChecked} className='h-3.5 w-3.5' />
         </div>
       </button>
-      <motion.label
-        className={cn('relative ml-2 overflow-hidden text-sm')}
-        animate={{
-          color: isChecked ? 'rgb(156, 163, 175)' : 'rgb(255, 255, 255)',
-        }}
-      >
-        <motion.span
-          animate={{
-            opacity: isChecked ? 0.6 : 1,
-          }}
-          transition={{
-            duration: 0.3,
-            ease: 'easeInOut',
-          }}
+      <MotionConfig transition={{ duration: 0.3, ease: 'easeInOut' }}>
+        <label
+          className={cn(
+            'relative ml-2 overflow-hidden text-sm text-black dark:text-white',
+          )}
         >
-          Take out the trash
-        </motion.span>
-        <motion.div
-          className='absolute bottom-1/2 left-0 h-[1px] w-full bg-gray-600'
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: isChecked ? 1 : 0 }}
-          transition={{ duration: 0.3, ease: 'easeInOut' }}
-        />
-      </motion.label>
+          <motion.span
+            animate={{
+              opacity: isChecked ? 0.5 : 1,
+            }}
+          >
+            Take out the trash
+          </motion.span>
+          <motion.div
+            className='absolute bottom-1/2 left-0 h-[1px] w-full bg-gray-600'
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: isChecked ? 1 : 0 }}
+          />
+        </label>
+      </MotionConfig>
     </div>
   );
 };

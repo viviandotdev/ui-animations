@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { Icons } from '@/components/icons';
 import { Button, ButtonProps } from '@/components/ui/button';
 
-import AnimatedCheckbox from '@/registry/core/ui/animated-checkbox';
+import AnimatedCheck from '@/registry/core/ui/animated-check';
 
 interface CopyButtonProps extends ButtonProps {
   value: string;
@@ -60,7 +60,7 @@ export const CopyButton: React.FC<CopyButtonProps> = ({
     >
       <span className='sr-only'>Copy</span>
       <IconWrapper>
-        <AnimatedCheckbox
+        <AnimatedCheck
           duration={ANIMATION_DURATION / 1000}
           isChecked={hasCopied}
         />
@@ -71,7 +71,7 @@ export const CopyButton: React.FC<CopyButtonProps> = ({
 };
 
 const IconWrapper: React.FC<React.PropsWithChildren> = ({ children }) => (
-  <div className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white'>
+  <div className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
     {children}
   </div>
 );

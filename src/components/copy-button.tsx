@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-import AnimatedCheckbox from '@/registry/core/ui/animated-checkbox';
+import AnimatedCheck from '@/registry/core/ui/animated-check';
 
 interface Event {
   name: string;
@@ -33,6 +33,9 @@ async function copyToClipboardWithMeta(value: string, event?: Event) {
   }
 }
 
+const COPY_TIMEOUT = 2000;
+const ANIMATION_DURATION = 300;
+
 export function CopyButton({
   value,
   className,
@@ -41,13 +44,19 @@ export function CopyButton({
   ...props
 }: CopyButtonProps) {
   const [hasCopied, setHasCopied] = React.useState(false);
+  const [showClipboard, setShowClipboard] = React.useState(true);
 
   React.useEffect(() => {
     if (hasCopied) {
-      const timer = setTimeout(() => {
+      const copyTimer = setTimeout(() => {
         setHasCopied(false);
-      }, 2000);
-      return () => clearTimeout(timer);
+        const clipboardTimer = setTimeout(() => {
+          setShowClipboard(true);
+        }, ANIMATION_DURATION);
+        return () => clearTimeout(clipboardTimer);
+      }, COPY_TIMEOUT);
+
+      return () => clearTimeout(copyTimer);
     }
   }, [hasCopied]);
 
@@ -64,6 +73,7 @@ export function CopyButton({
         : undefined,
     );
     setHasCopied(true);
+    setShowClipboard(false);
   }, [value, event]);
 
   return (
@@ -77,15 +87,24 @@ export function CopyButton({
       onClick={handleCopy}
       {...props}
     >
-      <span className='sr-only'>Copy</span>
-      {hasCopied ? (
-        <AnimatedCheckbox isChecked={hasCopied} className='h-3 w-3' />
-      ) : (
-        <Icons.Clipboard className='h-3 w-3' />
-      )}
+      <span className='sr-only'>Copy</span>{' '}
+      <IconWrapper>
+        <AnimatedCheck
+          duration={ANIMATION_DURATION / 1000}
+          isChecked={hasCopied}
+        />
+      </IconWrapper>
+      <IconWrapper>{showClipboard && <Icons.Clipboard />}</IconWrapper>
     </Button>
   );
 }
+
+const IconWrapper: React.FC<React.PropsWithChildren> = ({ children }) => (
+  <div className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
+    {children}
+  </div>
+);
+
 interface CopyWithClassNamesProps extends DropdownMenuTriggerProps {
   value: string;
   classNames: string;

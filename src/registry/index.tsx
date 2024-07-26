@@ -20,10 +20,10 @@ const ui: Registry = {
     type: 'components:ui',
     files: ['src/registry/core/ui/multi-step-component.tsx'],
   },
-  'animated-checkbox': {
-    name: 'animated-checkbox',
+  'animated-check': {
+    name: 'animated-check',
     type: 'components:ui',
-    files: ['src/registry/core/ui/animated-checkbox.tsx'],
+    files: ['src/registry/core/ui/animated-check.tsx'],
   },
   'animated-list': {
     name: 'animated-list',
