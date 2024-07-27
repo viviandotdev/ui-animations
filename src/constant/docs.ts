@@ -45,6 +45,11 @@ export const docsConfig: DocsConfig = {
           href: `/docs/components/animated-list`,
           items: [],
         },
+        {
+          title: 'Collapsible',
+          href: `/docs/components/collapsible`,
+          items: [],
+        },
       ],
     },
   ],

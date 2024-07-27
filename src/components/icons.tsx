@@ -1,4 +1,5 @@
 import {
+  Bell,
   CheckIcon,
   ChevronLeft,
   ChevronRight,
@@ -52,4 +53,5 @@ export const Icons = {
   Check: CheckIcon,
   Clipboard: Clipboard,
   Plus: PlusIcon,
+  Bell: Bell,
 };

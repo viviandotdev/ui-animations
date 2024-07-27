@@ -31,9 +31,22 @@ const ui: Registry = {
     files: ['src/registry/core/ui/animated-list.tsx'],
     component: React.lazy(() => import('@/registry/core/ui/animated-list')),
   },
+  collapsible: {
+    name: 'collapsible',
+    type: 'components:ui',
+    files: ['src/registry/core/ui/collapsible.tsx'],
+  },
 };
 
 const example: Registry = {
+  'collapsible-demo': {
+    name: 'collapsible-demo',
+    type: 'components:ui',
+    files: ['src/registry/core/example/collapsible-demo.tsx'], //code file
+    component: React.lazy(
+      () => import('@/registry/core/example/collapsible-demo'), //demo component
+    ),
+  },
   'copy-button-demo': {
     name: 'copy-button-demo',
     type: 'components:example',
