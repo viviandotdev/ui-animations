@@ -130,7 +130,7 @@ export const Preview: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className='relative h-[350px] w-full overflow-hidden'>
+        <div className='relative h-[360px] w-full overflow-hidden'>
           <AnimatePresence mode='popLayout' initial={false} custom={direction}>
             <motion.div
               key={index}
@@ -146,7 +146,7 @@ export const Preview: React.FC = () => {
                   duration: 0.8,
                 },
               }}
-              className='absolute inset-0 flex items-center justify-center'
+              className='absolute inset-0 flex items-center justify-center z-50'
             >
               {Preview}
             </motion.div>

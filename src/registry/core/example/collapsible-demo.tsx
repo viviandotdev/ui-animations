@@ -95,10 +95,10 @@ const CollapsibleDemo = () => {
                         </div>
                       </div>
                       <div>
-                        <h4 className='font-medium text-zinc-800 dark:text-zinc-200'>
+                        <h4 className='font-medium text-left text-zinc-800 dark:text-zinc-200'>
                           {notification.title}
                         </h4>
-                        <p className='text-sm text-zinc-600 dark:text-zinc-400 truncate'>
+                        <p className='text-sm text-zinc-600 text-left dark:text-zinc-400 truncate'>
                           {notification.content}
                         </p>
                       </div>

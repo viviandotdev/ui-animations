@@ -65,7 +65,7 @@ const MultiStepComponentDemo = () => {
   };
 
   return (
-    <div className='relative max-w-[420px] overflow-hidden rounded-xl border shadow'>
+    <div className='relative bg-white max-w-[420px] overflow-hidden rounded-xl border shadow'>
       <MultiStepComponent
         transition={{ duration: 0.5, type: 'spring', bounce: 0 }}
         variants={{
@@ -86,10 +86,10 @@ const MultiStepComponentDemo = () => {
         {steps.map((step, index) => (
           <div key={index}>
             <header className='mb-4 space-y-2'>
-              <h2 className='text-xl font-bold text-black dark:text-white'>
+              <h2 className='text-xl text-left font-bold text-black dark:text-white'>
                 {step.header.title}
               </h2>
-              <p className='text-sm text-zinc-500 dark:text-zinc-400'>
+              <p className='text-sm text-left text-zinc-500 dark:text-zinc-400'>
                 {step.header.description}
               </p>
             </header>
@@ -97,7 +97,7 @@ const MultiStepComponentDemo = () => {
           </div>
         ))}
       </MultiStepComponent>
-      <div className='p-6 flex gap-2 justify-between'>
+      <div className='px-6 pb-6 pt-4 flex gap-2 justify-between'>
         <Button
           disabled={currentStep === 0}
           onClick={handlePrev}

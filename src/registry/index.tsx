@@ -19,11 +19,17 @@ const ui: Registry = {
     name: 'multi-step-component',
     type: 'components:ui',
     files: ['src/registry/core/ui/multi-step-component.tsx'],
+    component: React.lazy(
+      () => import('@/registry/core/example/multi-step-survey-demo'), //demo component
+    ),
   },
   'animated-check': {
     name: 'animated-check',
     type: 'components:ui',
     files: ['src/registry/core/ui/animated-check.tsx'],
+    component: React.lazy(
+      () => import('@/registry/core/example/checkbox-demo'), //demo component
+    ),
   },
   'animated-list': {
     name: 'animated-list',
@@ -35,13 +41,16 @@ const ui: Registry = {
     name: 'collapsible',
     type: 'components:ui',
     files: ['src/registry/core/ui/collapsible.tsx'],
+    component: React.lazy(
+      () => import('@/registry/core/example/collapsible-demo'), //demo component
+    ),
   },
 };
 
 const example: Registry = {
   'collapsible-demo': {
     name: 'collapsible-demo',
-    type: 'components:ui',
+    type: 'components:example',
     files: ['src/registry/core/example/collapsible-demo.tsx'], //code file
     component: React.lazy(
       () => import('@/registry/core/example/collapsible-demo'), //demo component
