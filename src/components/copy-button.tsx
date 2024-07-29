@@ -1,6 +1,7 @@
 'use client';
 
 import { DropdownMenuTriggerProps } from '@radix-ui/react-dropdown-menu';
+import { AnimatePresence, motion } from 'framer-motion';
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
@@ -34,7 +35,6 @@ async function copyToClipboardWithMeta(value: string, event?: Event) {
 }
 
 const COPY_TIMEOUT = 2000;
-const ANIMATION_DURATION = 300;
 
 export function CopyButton({
   value,
@@ -44,16 +44,11 @@ export function CopyButton({
   ...props
 }: CopyButtonProps) {
   const [hasCopied, setHasCopied] = React.useState(false);
-  const [showClipboard, setShowClipboard] = React.useState(true);
 
   React.useEffect(() => {
     if (hasCopied) {
       const copyTimer = setTimeout(() => {
         setHasCopied(false);
-        const clipboardTimer = setTimeout(() => {
-          setShowClipboard(true);
-        }, ANIMATION_DURATION);
-        return () => clearTimeout(clipboardTimer);
       }, COPY_TIMEOUT);
 
       return () => clearTimeout(copyTimer);
@@ -73,8 +68,14 @@ export function CopyButton({
         : undefined,
     );
     setHasCopied(true);
-    setShowClipboard(false);
   }, [value, event]);
+
+  const iconVariants = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    exit: { opacity: 0 },
+    transition: { duration: 0.2 },
+  };
 
   return (
     <Button
@@ -87,23 +88,25 @@ export function CopyButton({
       onClick={handleCopy}
       {...props}
     >
-      <span className='sr-only'>Copy</span>{' '}
-      <IconWrapper>
-        <AnimatedCheck
-          duration={ANIMATION_DURATION / 1000}
-          isChecked={hasCopied}
-        />
-      </IconWrapper>
-      <IconWrapper>{showClipboard && <Icons.Clipboard />}</IconWrapper>
+      <span className='sr-only'>Copy</span>
+      <AnimatePresence mode='wait' initial={false}>
+        {hasCopied ? (
+          <motion.div key='check' className='absolute' {...iconVariants}>
+            <AnimatedCheck
+              isChecked={hasCopied}
+              className='text-black'
+              duration={0.3}
+            />
+          </motion.div>
+        ) : (
+          <motion.div key='copy' className='absolute' {...iconVariants}>
+            <Icons.Clipboard />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Button>
   );
 }
-
-const IconWrapper: React.FC<React.PropsWithChildren> = ({ children }) => (
-  <div className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
-    {children}
-  </div>
-);
 
 interface CopyWithClassNamesProps extends DropdownMenuTriggerProps {
   value: string;

@@ -22,8 +22,9 @@ export const AnimatedCheck: React.FC<AnimatedCheckProps> = ({
       strokeWidth='3.5'
       stroke='currentColor'
       className={className}
-      initial={true}
+      initial='unchecked'
       animate={isChecked ? 'checked' : 'unchecked'}
+      exit='unchecked'
     >
       <motion.path
         strokeLinecap='round'
@@ -35,14 +36,14 @@ export const AnimatedCheck: React.FC<AnimatedCheckProps> = ({
             opacity: 1,
             transition: {
               duration,
-              delay: delay,
+              delay,
             },
           },
           unchecked: {
             pathLength: 0,
             opacity: 0,
             transition: {
-              duration,
+              duration: duration / 2,
             },
           },
         }}

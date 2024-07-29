@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { cn } from '@/lib/utils';
@@ -12,7 +13,6 @@ interface CopyButtonProps extends ButtonProps {
 }
 
 const COPY_TIMEOUT = 2000;
-const ANIMATION_DURATION = 300;
 
 const copyToClipboard = async (value: string): Promise<void> => {
   await navigator.clipboard.writeText(value);
@@ -25,55 +25,56 @@ export const CopyButton: React.FC<CopyButtonProps> = ({
   ...props
 }) => {
   const [hasCopied, setHasCopied] = useState(false);
-  const [showClipboard, setShowClipboard] = useState(true);
 
   useEffect(() => {
     if (hasCopied) {
-      const copyTimer = setTimeout(() => {
-        setHasCopied(false);
-        const clipboardTimer = setTimeout(() => {
-          setShowClipboard(true);
-        }, ANIMATION_DURATION);
-        return () => clearTimeout(clipboardTimer);
-      }, COPY_TIMEOUT);
-
-      return () => clearTimeout(copyTimer);
+      const timer = setTimeout(() => setHasCopied(false), COPY_TIMEOUT);
+      return () => clearTimeout(timer);
     }
   }, [hasCopied]);
 
   const handleCopy = useCallback(async () => {
     await copyToClipboard(value);
     setHasCopied(true);
-    setShowClipboard(false);
   }, [value]);
+
+  const iconVariants = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    exit: { opacity: 0 },
+    transition: { duration: 0.2 },
+  };
 
   return (
     <Button
       size='icon'
       variant={variant}
       className={cn(
-        'relative z-10 flex h-7 w-7 items-center [&_svg]:h-3.5 [&_svg]:w-3.5',
+        'relative z-10 flex h-7 w-7 items-center justify-center [&_svg]:h-3.5 [&_svg]:w-3.5',
         className,
       )}
       onClick={handleCopy}
       {...props}
     >
       <span className='sr-only'>Copy</span>
-      <IconWrapper>
-        <AnimatedCheck
-          duration={ANIMATION_DURATION / 1000}
-          isChecked={hasCopied}
-        />
-      </IconWrapper>
-      <IconWrapper>{showClipboard && <Icons.Clipboard />}</IconWrapper>
+
+      <AnimatePresence mode='wait' initial={false}>
+        {hasCopied ? (
+          <motion.div key='check' className='absolute' {...iconVariants}>
+            <AnimatedCheck
+              isChecked={hasCopied}
+              className='text-black'
+              duration={0.3}
+            />
+          </motion.div>
+        ) : (
+          <motion.div key='copy' className='absolute' {...iconVariants}>
+            <Icons.Clipboard />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Button>
   );
 };
-
-const IconWrapper: React.FC<React.PropsWithChildren> = ({ children }) => (
-  <div className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
-    {children}
-  </div>
-);
 
 export default CopyButton;
