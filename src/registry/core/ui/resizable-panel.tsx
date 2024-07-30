@@ -21,7 +21,7 @@ const ResizablePanel: React.FC<ResizablePanelProps> = ({
   return (
     <motion.div
       animate={{ height: bounds.height > 0 ? bounds.height : undefined }}
-      transition={{ type: 'spring', bounce: 0, duration: 0.8 }}
+      transition={{ type: 'spring', bounce: 0.3, duration: 0.7 }}
       style={{ overflow: 'hidden', position: 'relative' }}
     >
       <div ref={ref}>
@@ -37,6 +37,12 @@ interface ResizablePanelContentProps extends ComponentProps<'div'> {
   value: string;
   children: ReactNode;
 }
+
+const transition = {
+  type: 'ease',
+  ease: 'easeInOut',
+  duration: 0.4,
+};
 
 const ResizablePanelContent: React.FC<ResizablePanelContentProps> = ({
   value,
@@ -54,18 +60,16 @@ const ResizablePanelContent: React.FC<ResizablePanelContentProps> = ({
           animate={{
             opacity: 1,
             transition: {
-              type: 'ease',
-              ease: 'easeInOut',
-              duration: 0.3,
-              delay: 0.2,
+              ...transition,
+              duration: transition.duration / 2,
+              delay: 0.3,
             },
           }}
           exit={{
             opacity: 0,
             transition: {
-              type: 'ease',
-              ease: 'easeInOut',
-              duration: 0.2,
+              ...transition,
+              duration: transition.duration / 2,
             },
           }}
         >
@@ -75,7 +79,5 @@ const ResizablePanelContent: React.FC<ResizablePanelContentProps> = ({
     </AnimatePresence>
   );
 };
-
-// export default ResizablePanelContent;
 
 export { ResizablePanel, ResizablePanelContent };
