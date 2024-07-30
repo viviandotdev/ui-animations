@@ -1,9 +1,30 @@
+import { allDocs } from 'contentlayer/generated';
+
 import { MainNavItem, SidebarNavItem } from '@/types/nav';
 
 interface DocsConfig {
   mainNav: MainNavItem[];
   sidebarNav: SidebarNavItem[];
 }
+
+const sortAlphabetically = (a: SidebarNavItem, b: SidebarNavItem) => {
+  return (a.sortId ?? a.title)
+    .toLowerCase()
+    .localeCompare((b.sortId ?? b.title).toLowerCase());
+};
+
+const createLinks = (category: string) => {
+  return allDocs
+    .filter((doc) => doc.slug.startsWith(`/docs/${category}`) && doc.published)
+    .map((doc) => ({
+      // Make sure the index page is the first item
+      title: doc.title,
+      sortId: doc.slug === `/docs/${category}` ? '000' : doc.title,
+      href: doc.slug,
+      items: [],
+    }))
+    .sort(sortAlphabetically);
+};
 
 export const docsConfig: DocsConfig = {
   mainNav: [
@@ -19,43 +40,11 @@ export const docsConfig: DocsConfig = {
   sidebarNav: [
     {
       title: 'Components',
-      items: [
-        {
-          title: 'Animated Tabs',
-          href: `/docs/components/animated-tabs`,
-          items: [],
-        },
-        {
-          title: 'Magnified Dock',
-          href: `/docs/components/magnified-dock`,
-          items: [],
-        },
-        {
-          title: 'Multi Step Component',
-          href: `/docs/components/multi-step-component`,
-          items: [],
-        },
-        {
-          title: 'Animated Check',
-          href: `/docs/components/animated-check`,
-          items: [],
-        },
-        {
-          title: 'Animated List',
-          href: `/docs/components/animated-list`,
-          items: [],
-        },
-        {
-          title: 'Collapsible',
-          href: `/docs/components/collapsible`,
-          items: [],
-        },
-        {
-          title: 'Resizable Panel',
-          href: `/docs/components/resizable-panel`,
-          items: [],
-        },
-      ],
+      items: createLinks('components'),
+    },
+    {
+      title: 'Button',
+      items: createLinks('buttons'),
     },
   ],
 };

@@ -53,6 +53,14 @@ const ui: Registry = {
 };
 
 const example: Registry = {
+  'spinner-button-demo': {
+    name: 'spinner-button-demo',
+    type: 'components:example',
+    files: ['src/registry/core/example/spinner-button-demo.tsx'], //code file
+    component: React.lazy(
+      () => import('@/registry/core/example/spinner-button-demo'), //demo component
+    ),
+  },
   'resizable-panel-demo': {
     name: 'resizable-panel-demo',
     type: 'components:example',
