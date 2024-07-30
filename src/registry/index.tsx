@@ -45,9 +45,22 @@ const ui: Registry = {
       () => import('@/registry/core/example/collapsible-demo'), //demo component
     ),
   },
+  'resizable-panel': {
+    name: 'resizable-panel',
+    type: 'components:ui',
+    files: ['src/registry/core/ui/resizable-panel.tsx'],
+  },
 };
 
 const example: Registry = {
+  'resizable-panel-demo': {
+    name: 'resizable-panel-demo',
+    type: 'components:example',
+    files: ['src/registry/core/example/resizable-panel-demo.tsx'], //code file
+    component: React.lazy(
+      () => import('@/registry/core/example/resizable-panel-demo'), //demo component
+    ),
+  },
   'collapsible-demo': {
     name: 'collapsible-demo',
     type: 'components:example',

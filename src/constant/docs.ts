@@ -50,6 +50,11 @@ export const docsConfig: DocsConfig = {
           href: `/docs/components/collapsible`,
           items: [],
         },
+        {
+          title: 'Resizable Panel',
+          href: `/docs/components/resizable-panel`,
+          items: [],
+        },
       ],
     },
   ],
