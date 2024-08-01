@@ -50,15 +50,20 @@ const ui: Registry = {
     type: 'components:ui',
     files: ['src/registry/core/ui/resizable-panel.tsx'],
   },
+  'status-button': {
+    name: 'status-button',
+    type: 'components:ui',
+    files: ['src/registry/core/ui/status-button.tsx'],
+  },
 };
 
 const example: Registry = {
-  'spinner-button-demo': {
-    name: 'spinner-button-demo',
+  'status-button-demo': {
+    name: 'status-button-demo',
     type: 'components:example',
-    files: ['src/registry/core/example/spinner-button-demo.tsx'], //code file
+    files: ['src/registry/core/example/status-button-demo.tsx'], //code file
     component: React.lazy(
-      () => import('@/registry/core/example/spinner-button-demo'), //demo component
+      () => import('@/registry/core/example/status-button-demo'), //demo component
     ),
   },
   'resizable-panel-demo': {
