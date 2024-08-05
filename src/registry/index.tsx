@@ -55,6 +55,14 @@ const ui: Registry = {
     type: 'components:ui',
     files: ['src/registry/core/ui/status-button.tsx'],
   },
+  'shared-layout-modal': {
+    name: 'shared-layout-modal',
+    type: 'components:ui',
+    files: ['src/registry/core/ui/shared-layout-modal.tsx'],
+    component: React.lazy(
+      () => import('@/registry/core/ui/shared-layout-modal'),
+    ),
+  },
 };
 
 const example: Registry = {
