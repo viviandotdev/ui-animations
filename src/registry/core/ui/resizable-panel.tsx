@@ -34,7 +34,7 @@ const ResizablePanel: React.FC<ResizablePanelProps> = ({
 };
 
 interface ResizablePanelContentProps extends ComponentProps<'div'> {
-  value: string;
+  values: string[];
   children: ReactNode;
 }
 
@@ -45,12 +45,12 @@ const transition = {
 };
 
 const ResizablePanelContent: React.FC<ResizablePanelContentProps> = ({
-  value,
+  values,
   children,
   ...rest
 }) => {
   const panelContext = useContext(PanelContext);
-  const isActive = panelContext.value === value;
+  const isActive = values.includes(panelContext.value);
 
   return (
     <AnimatePresence mode='popLayout' initial={false}>

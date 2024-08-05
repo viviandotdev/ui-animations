@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { ButtonHTMLAttributes, useState } from 'react';
+import React, { ButtonHTMLAttributes, Dispatch, SetStateAction } from 'react';
 
 type ButtonStatus = 'idle' | 'loading' | 'success';
 
@@ -14,27 +14,28 @@ interface ButtonCopy {
 interface StatusButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   buttonCopy: ButtonCopy;
-  onSubmit: () => Promise<void>;
+  status: ButtonStatus;
+  setStatus: Dispatch<SetStateAction<ButtonStatus>>;
 }
+
+const wait = async (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
 
 function StatusButton({
   className,
   buttonCopy,
-  onSubmit,
-  ...rest
+  status,
+  setStatus,
+  ...props
 }: StatusButtonProps) {
-  const [status, setStatus] = useState<ButtonStatus>('idle');
-
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    setStatus('loading');
-    try {
-      await onSubmit();
+    if (!disabled) {
+      setStatus('loading');
+      await wait(1500);
       setStatus('success');
-      setTimeout(() => setStatus('idle'), 1750);
-    } catch (error) {
+      await wait(3000);
       setStatus('idle');
-      // Handle error if needed
     }
   };
 
@@ -46,7 +47,7 @@ function StatusButton({
       disabled={disabled}
       className={`${className} relative transition flex items-center justify-center duration-200`}
       onClick={handleSubmit}
-      {...rest}
+      {...props}
     >
       <AnimatePresence mode='popLayout' initial={false}>
         <motion.span

@@ -1,20 +1,20 @@
 import { CircleDashed, ShoppingCart } from 'lucide-react';
-import React from 'react';
+import React, { useState } from 'react';
 
 import AnimatedCheck from '@/registry/core/ui/animated-check';
 
 import StatusButton from '../ui/status-button';
 
+type ButtonStatus = 'idle' | 'loading' | 'success';
+
 export const StatusButtonDemo: React.FC = () => {
-  const handleAddToCart = async () => {
-    // Simulating API call
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log('Added to cart');
-  };
+  const [status, setStatus] = useState<ButtonStatus>('idle');
 
   return (
     <>
       <StatusButton
+        status={status}
+        setStatus={setStatus}
         className={`
           rounded-lg font-medium text-sm h-8 w-[172px] overflow-hidden
           bg-gradient-to-b from-orange-400 to-orange-500
@@ -41,7 +41,6 @@ export const StatusButtonDemo: React.FC = () => {
             </div>
           ),
         }}
-        onSubmit={handleAddToCart}
       />
     </>
   );
