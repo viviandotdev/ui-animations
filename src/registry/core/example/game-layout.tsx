@@ -1,8 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
-import './styles.css';
-
 interface Game {
   title: string;
   description: string;
@@ -37,13 +35,13 @@ export default function SharedLayout() {
       </AnimatePresence>
       <AnimatePresence>
         {activeGame ? (
-          <div className='active-game'>
+          <div className='absolute inset-0 grid place-items-center z-10'>
             <motion.div
               layoutId={`card-${activeGame.title}`}
-              className='inner'
+              className='flex h-fit w-[500px] cursor-pointer flex-col items-start gap-4 overflow-hidden bg-white p-4 '
               style={{ borderRadius: 12 }}
             >
-              <div className='header'>
+              <div className='flex items-center gap-4 w-full'>
                 <motion.img
                   layoutId={`image-${activeGame.title}`}
                   height={56}
@@ -52,24 +50,24 @@ export default function SharedLayout() {
                   src={activeGame.image}
                   style={{ borderRadius: 12 }}
                 />
-                <div className='header-inner'>
-                  <div className='content-wrapper'>
+                <div className='flex grow items-center justify-between'>
+                  <div className='flex flex-col pr-4 p-0'>
                     <motion.h2
                       layoutId={`title-${activeGame.title}`}
-                      className='game-title'
+                      className='text-sm font-medium'
                     >
                       {activeGame.title}
                     </motion.h2>
                     <motion.p
                       layoutId={`description-${activeGame.title}`}
-                      className='game-description'
+                      className='text-sm text-gray-500'
                     >
                       {activeGame.description}
                     </motion.p>
                   </div>
                   <motion.button
                     layoutId={`button-${activeGame.title}`}
-                    className='button'
+                    className='rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-blue-500'
                   >
                     Get
                   </motion.button>
@@ -80,7 +78,7 @@ export default function SharedLayout() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0, transition: { duration: 0.05 } }}
-                className='long-description'
+                className='text-sm text-gray-500'
               >
                 {activeGame.longDescription}
               </motion.p>
@@ -88,40 +86,38 @@ export default function SharedLayout() {
           </div>
         ) : null}
       </AnimatePresence>
-      <ul className='list'>
+      <ul className='relative flex w-full flex-col items-center p-0 my-12'>
         {GAMES.map((game) => (
           <motion.li
             layoutId={`card-${game.title}`}
             key={game.title}
             onClick={() => setActiveGame(game)}
-            style={{ borderRadius: 8 }}
+            className='flex w-96 cursor-pointer items-center gap-4 p-0 rounded-lg'
           >
             <motion.img
               layoutId={`image-${game.title}`}
-              height={56}
-              width={56}
+              className='h-14 w-14 rounded-xl'
               alt='Game'
               src={game.image}
-              style={{ borderRadius: 12 }}
             />
-            <div className='game-wrapper'>
-              <div className='content-wrapper'>
+            <div className='flex flex-grow items-center justify-between border-b border-gray-200 last:border-none'>
+              <div className='flex flex-col py-4'>
                 <motion.h2
                   layoutId={`title-${game.title}`}
-                  className='game-title'
+                  className='text-sm font-medium'
                 >
                   {game.title}
                 </motion.h2>
                 <motion.p
                   layoutId={`description-${game.title}`}
-                  className='game-description'
+                  className='text-sm text-gray-500'
                 >
                   {game.description}
                 </motion.p>
               </div>
               <motion.button
                 layoutId={`button-${game.title}`}
-                className='button'
+                className='rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-blue-500'
               >
                 Get
               </motion.button>

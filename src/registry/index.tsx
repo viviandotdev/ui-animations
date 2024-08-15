@@ -60,15 +60,23 @@ const ui: Registry = {
     type: 'components:ui',
     files: ['src/registry/core/ui/dialog.tsx'],
   },
-  'image-carousel': {
-    name: 'image-carousel',
-    type: 'components:ui',
-    files: ['src/registry/core/ui/image-carousel.tsx'],
-    component: React.lazy(() => import('@/registry/core/ui/image-carousel')),
-  },
+  // 'image-carousel': {
+  //   name: 'image-carousel',
+  //   type: 'components:ui',
+  //   files: ['src/registry/core/ui/image-carousel.tsx'],
+  //   component: React.lazy(() => import('@/registry/core/ui/image-carousel')),
+  // },
 };
 
 const example: Registry = {
+  'game-layout': {
+    name: 'game-layout',
+    type: 'components:example',
+    files: ['src/registry/core/example/game-layout.tsx'], //code file
+    component: React.lazy(
+      () => import('@/registry/core/example/game-layout'), //demo component
+    ),
+  },
   'product-card': {
     name: 'product-card',
     type: 'components:example',
