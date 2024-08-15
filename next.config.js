@@ -18,6 +18,11 @@ const nextConfig = {
         hostname: 'webgradients.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'i.scdn.co',
+        port: '',
+      },
     ],
   },
 

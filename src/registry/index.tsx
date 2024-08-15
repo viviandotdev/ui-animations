@@ -55,17 +55,44 @@ const ui: Registry = {
     type: 'components:ui',
     files: ['src/registry/core/ui/status-button.tsx'],
   },
-  'shared-layout-modal': {
-    name: 'shared-layout-modal',
+  dialog: {
+    name: 'dialog',
     type: 'components:ui',
-    files: ['src/registry/core/ui/shared-layout-modal.tsx'],
-    component: React.lazy(
-      () => import('@/registry/core/ui/shared-layout-modal'),
-    ),
+    files: ['src/registry/core/ui/dialog.tsx'],
+  },
+  'image-carousel': {
+    name: 'image-carousel',
+    type: 'components:ui',
+    files: ['src/registry/core/ui/image-carousel.tsx'],
+    component: React.lazy(() => import('@/registry/core/ui/image-carousel')),
   },
 };
 
 const example: Registry = {
+  'product-card': {
+    name: 'product-card',
+    type: 'components:example',
+    files: ['src/registry/core/example/product-card.tsx'], //code file
+    component: React.lazy(
+      () => import('@/registry/core/example/product-card'), //demo component
+    ),
+  },
+  'album-layout': {
+    name: 'album-layout',
+    type: 'components:example',
+    files: ['src/registry/core/example/album-layout.tsx'], //code file
+    component: React.lazy(
+      () => import('@/registry/core/example/album-layout'), //demo component
+    ),
+  },
+  'contact-layout': {
+    name: 'contact-layout',
+    type: 'components:example',
+    files: ['src/registry/core/example/contact-layout.tsx'], //code file
+    component: React.lazy(
+      () => import('@/registry/core/example/contact-layout'), //demo component
+    ),
+  },
   'status-button-demo': {
     name: 'status-button-demo',
     type: 'components:example',

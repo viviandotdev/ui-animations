@@ -74,7 +74,7 @@ export function ComponentPreview({
           <ComponentWrapper>
             <div
               className={cn(
-                'preview flex min-h-[250px] w-full justify-center ',
+                'preview flex min-h-[500px] w-full justify-center ',
                 {
                   'items-center': align === 'center',
                   'items-start': align === 'start',
