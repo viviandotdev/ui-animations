@@ -1,7 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import { FastForward, Play, SkipBack, SkipForward } from 'lucide-react';
 import { useEffect, useState } from 'react';
-
-import { Button } from '@/components/ui/button';
 
 interface Album {
   title: string;
@@ -24,15 +23,24 @@ export default function SharedLayout() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, []);
 
+  const currentTime = 22; // seconds
+  const totalDuration = 173; // seconds (2:53)
+
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainderSeconds = seconds % 60;
+    return `${minutes}:${remainderSeconds < 10 ? '0' : ''}${remainderSeconds}`;
+  };
+
   return (
     <>
-      <div className='flex flex-col'>
+      <div className='flex flex-col justify-center'>
         <AnimatePresence>
           {activeAlbum && (
-            <div className='absolute inset-0 grid place-items-center z-10'>
+            <div className='absolute inset-0 flex flex-col items-center justify-center z-10'>
               <motion.div
                 layoutId={`card-${activeAlbum.title}`}
-                className='flex h-fit cursor-pointer flex-col gap-4 overflow-hidden p-4'
+                className='flex h-fit cursor-pointer flex-col justify-center items-center gap-4 overflow-hidden p-4'
                 style={{ borderRadius: 12 }}
               >
                 <motion.img
@@ -41,12 +49,12 @@ export default function SharedLayout() {
                   width={300}
                   alt='Album'
                   src={activeAlbum.image}
-                  className='mx-auto p-4'
+                  className='mx-auto px-4 pt-4'
                   style={{ borderRadius: 24 }}
                 />
-                <div className='flex items-center justify-between w-full'>
-                  <div className='flex flex-col items-start gap-1'>
-                    <div className='flex w-full justify-between'>
+                <div className='flex  w-full px-4'>
+                  <div className='flex flex-col gap-1'>
+                    <div className='flex w-full'>
                       <motion.p
                         layoutId={`title-${activeAlbum.title}`}
                         className='text-xl font-semibold text-white'
@@ -54,7 +62,7 @@ export default function SharedLayout() {
                         {activeAlbum.title}
                       </motion.p>
                     </div>
-                    <div className='flex flex-col text-left'>
+                    <div className='flex flex-col'>
                       <motion.p
                         layoutId={`description-${activeAlbum.description}`}
                         className='text-base font-medium text-gray-400'
@@ -65,20 +73,68 @@ export default function SharedLayout() {
                   </div>
                 </div>
               </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0 }}
-                transition={{ duration: 1, ease: 'easeInOut' }}
-                className='flex flex-col w-full'
-              >
-                <Button variant='secondary' className='h-8 text-xs w-full'>
-                  Add to Cart
-                </Button>
-                <Button variant='secondary' className='h-8 text-xs w-full mt-2'>
-                  BUY
-                </Button>
-              </motion.div>
+              <div className='flex w-[300px] h-fit justify-center cursor-pointer flex-col gap-4 overflow-hidden px-4'>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.3 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0 }}
+                  transition={{ duration: 0.4, ease: 'easeInOut' }}
+                  className='flex flex-col items-center w-full'
+                >
+                  <div className='w-full mt-2'>
+                    <div className='bg-gray-600 rounded-md h-0.5 relative'>
+                      <div
+                        className='bg-white rounded-md h-0.5'
+                        style={{
+                          width: `${(currentTime / totalDuration) * 100}%`,
+                        }}
+                      ></div>
+                      <div
+                        className='absolute bg-white rounded-full w-3 h-3'
+                        style={{
+                          left: `${(currentTime / totalDuration) * 100}%`,
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                        }}
+                      ></div>
+                    </div>
+                    <div className='flex justify-between text-zinc-400 text-xs font-normal leading-3 mt-2'>
+                      <div>{formatTime(currentTime)}</div>
+                      <div>{formatTime(totalDuration)}</div>
+                    </div>
+                  </div>
+
+                  <div className='flex flex-col w-full items-center bg-black rounded-2xl'>
+                    <div className='flex w-full justify-center items-center'>
+                      <div className='w-full flex justify-between items-center mt-4'>
+                        <FastForward
+                          className='transform rotate-180 text-gray-500 w-6 h-6 cursor-pointer'
+                          fill='gray'
+                        />
+                        <SkipBack
+                          fill='white'
+                          className='text-white w-6 h-6 cursor-pointer'
+                        />
+                        <div className='bg-white p-3 rounded-full'>
+                          <Play
+                            fill='black'
+                            className='text-white w-8 h-8 cursor-pointer'
+                          />
+                        </div>
+
+                        <SkipForward
+                          fill='white'
+                          className='text-white w-6 h-6 cursor-pointer'
+                        />
+                        <FastForward
+                          className='text-gray-500 w-6 h-6 cursor-pointer'
+                          fill='gray'
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
             </div>
           )}
         </AnimatePresence>
@@ -113,7 +169,7 @@ export default function SharedLayout() {
                 <div className='flex flex-col '>
                   <motion.p
                     layoutId={`description-${game.description}`}
-                    className='text-sm font-semibold text-white'
+                    className='text-sm font-semibold text-gray-400'
                   >
                     {game.description}
                   </motion.p>
