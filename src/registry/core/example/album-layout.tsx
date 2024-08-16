@@ -49,7 +49,6 @@ export default function SharedLayout() {
                   width={300}
                   alt='Album'
                   src={activeAlbum.image}
-                  className='mx-auto px-4 pt-4'
                   style={{ borderRadius: 24 }}
                 />
                 <div className='flex  w-full px-4'>
