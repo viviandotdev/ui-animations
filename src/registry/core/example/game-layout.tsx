@@ -77,7 +77,8 @@ export default function SharedLayout() {
                 layout
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                exit={{ opacity: 0, transition: { duration: 0.05 } }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 6 }}
                 className='text-sm text-gray-500'
               >
                 {activeGame.longDescription}

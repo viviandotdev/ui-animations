@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { Heart, Play } from 'lucide-react';
-import { FastForward, SkipBack, SkipForward } from 'lucide-react';
 import { useEffect, useState } from 'react';
+
+import { Button } from '@/components/ui/button';
 
 interface Album {
   title: string;
@@ -23,128 +23,66 @@ export default function SharedLayout() {
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, []);
-  const currentTime = 22; // seconds
-  const totalDuration = 173; // seconds (2:53)
-
-  const formatTime = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainderSeconds = seconds % 60;
-    return `${minutes}:${remainderSeconds < 10 ? '0' : ''}${remainderSeconds}`;
-  };
 
   return (
     <>
-      <AnimatePresence>
-        {activeAlbum ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className='overlay'
-          />
-        ) : null}
-      </AnimatePresence>
-      <AnimatePresence>
-        {activeAlbum ? (
-          <div className='absolute inset-0 grid place-items-center z-10'>
-            <motion.div
-              layoutId={`card-${activeAlbum.title}`}
-              className='flex h-fit cursor-pointer flex-col gap-4 overflow-hidden p-4'
-              style={{ borderRadius: 12 }}
-            >
-              <motion.img
-                layoutId={`image-${activeAlbum.title}`}
-                height={300}
-                width={300}
-                alt='Album'
-                src={activeAlbum.image}
-                className='mx-auto p-4'
-                style={{ borderRadius: 24 }}
-              />
-              <div className='flex items-center justify-between'>
-                <div className='flex flex-col items-start gap-1'>
-                  <div className='flex w-full justify-between'>
-                    <motion.p
-                      layoutId={`title-${activeAlbum.title}`}
-                      className='text-xl font-semibold text-white'
-                    >
-                      {activeAlbum.title}
-                    </motion.p>
-                  </div>
-                  <div className='flex flex-col text-left'>
-                    <motion.p
-                      layoutId={`description-${activeAlbum.description}`}
-                      className='text-base font-medium text-gray-400'
-                    >
-                      {activeAlbum.description}
-                    </motion.p>
-                  </div>
-                </div>
-                <div className='flex gap-4'>
-                  <Heart />
-                </div>
-              </div>
-
-              <div className='w-full mt-2'>
-                <div className='bg-gray-600 rounded-md h-0.5 relative'>
-                  <div
-                    className='bg-white rounded-md h-0.5'
-                    style={{ width: `${(currentTime / totalDuration) * 100}%` }}
-                  ></div>
-                  <div
-                    className='absolute bg-white rounded-full w-3 h-3'
-                    style={{
-                      left: `${(currentTime / totalDuration) * 100}%`,
-                      top: '50%',
-                      transform: 'translate(-50%, -50%)',
-                    }}
-                  ></div>
-                </div>
-                <div className='flex justify-between text-zinc-400 text-xs font-normal leading-3 mt-2'>
-                  <div>{formatTime(currentTime)}</div>
-                  <div>{formatTime(totalDuration)}</div>
-                </div>
-              </div>
-
+      <div className='flex flex-col'>
+        <AnimatePresence>
+          {activeAlbum && (
+            <div className='absolute inset-0 grid place-items-center z-10'>
               <motion.div
-                layout
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0, transition: { duration: 0.05 } }}
-                className='flex flex-col w-full items-center bg-black rounded-2xl'
+                layoutId={`card-${activeAlbum.title}`}
+                className='flex h-fit cursor-pointer flex-col gap-4 overflow-hidden p-4'
+                style={{ borderRadius: 12 }}
               >
-                <div className='flex w-full justify-center items-center'>
-                  <div className='w-full flex justify-between items-center mt-4'>
-                    <FastForward
-                      className='transform rotate-180 text-gray-500 w-6 h-6 cursor-pointer'
-                      fill='gray'
-                    />
-                    <SkipBack
-                      fill='white'
-                      className='text-white w-6 h-6 cursor-pointer'
-                    />
-                    <div className='bg-white p-3 rounded-full'>
-                      <Play
-                        fill='black'
-                        className='text-white w-8 h-8 cursor-pointer'
-                      />
+                <motion.img
+                  layoutId={`image-${activeAlbum.title}`}
+                  height={300}
+                  width={300}
+                  alt='Album'
+                  src={activeAlbum.image}
+                  className='mx-auto p-4'
+                  style={{ borderRadius: 24 }}
+                />
+                <div className='flex items-center justify-between w-full'>
+                  <div className='flex flex-col items-start gap-1'>
+                    <div className='flex w-full justify-between'>
+                      <motion.p
+                        layoutId={`title-${activeAlbum.title}`}
+                        className='text-xl font-semibold text-white'
+                      >
+                        {activeAlbum.title}
+                      </motion.p>
                     </div>
-
-                    <SkipForward
-                      fill='white'
-                      className='text-white w-6 h-6 cursor-pointer'
-                    />
-                    <FastForward
-                      className='text-gray-500 w-6 h-6 cursor-pointer'
-                      fill='gray'
-                    />
+                    <div className='flex flex-col text-left'>
+                      <motion.p
+                        layoutId={`description-${activeAlbum.description}`}
+                        className='text-base font-medium text-gray-400'
+                      >
+                        {activeAlbum.description}
+                      </motion.p>
+                    </div>
                   </div>
                 </div>
               </motion.div>
-            </motion.div>
-          </div>
-        ) : null}
-      </AnimatePresence>
+              <motion.div
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0 }}
+                transition={{ duration: 1, ease: 'easeInOut' }}
+                className='flex flex-col w-full'
+              >
+                <Button variant='secondary' className='h-8 text-xs w-full'>
+                  Add to Cart
+                </Button>
+                <Button variant='secondary' className='h-8 text-xs w-full mt-2'>
+                  BUY
+                </Button>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
+      </div>
 
       <ul className='relative flex w-full flex-col items-center p-0 my-12'>
         {GAMES.map((game) => (
