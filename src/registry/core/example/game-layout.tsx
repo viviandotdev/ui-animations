@@ -29,7 +29,7 @@ export default function SharedLayout() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className='overlay'
+            className='absolute inset-0 z-10 bg-black bg-opacity-20'
           />
         ) : null}
       </AnimatePresence>
@@ -77,8 +77,7 @@ export default function SharedLayout() {
                 layout
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 6 }}
+                exit={{ opacity: 0, transition: { duration: 0.05 } }}
                 className='text-sm text-gray-500'
               >
                 {activeGame.longDescription}

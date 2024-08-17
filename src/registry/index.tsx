@@ -93,14 +93,6 @@ const example: Registry = {
       () => import('@/registry/core/example/album-layout'), //demo component
     ),
   },
-  'contact-layout': {
-    name: 'contact-layout',
-    type: 'components:example',
-    files: ['src/registry/core/example/contact-layout.tsx'], //code file
-    component: React.lazy(
-      () => import('@/registry/core/example/contact-layout'), //demo component
-    ),
-  },
   'status-button-demo': {
     name: 'status-button-demo',
     type: 'components:example',

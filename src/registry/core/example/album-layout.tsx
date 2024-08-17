@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 interface Album {
   title: string;
   description: string;
-  longDescription: string;
   image: string;
 }
 
@@ -51,12 +50,12 @@ export default function SharedLayout() {
                   src={activeAlbum.image}
                   style={{ borderRadius: 24 }}
                 />
-                <div className='flex  w-full px-4'>
+                <div className='flex w-full px-4'>
                   <div className='flex flex-col gap-1'>
                     <div className='flex w-full'>
                       <motion.p
                         layoutId={`title-${activeAlbum.title}`}
-                        className='text-xl font-semibold text-white'
+                        className='text-xl font-semibold text-black dark:text-white'
                       >
                         {activeAlbum.title}
                       </motion.p>
@@ -74,22 +73,22 @@ export default function SharedLayout() {
               </motion.div>
               <div className='flex w-[300px] h-fit justify-center cursor-pointer flex-col gap-4 overflow-hidden px-4'>
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.3 }}
+                  initial={{ opacity: 0, scale: 0.4 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0 }}
+                  exit={{ opacity: 0, scale: 0.4 }}
                   transition={{ duration: 0.4, ease: 'easeInOut' }}
                   className='flex flex-col items-center w-full'
                 >
                   <div className='w-full mt-2'>
-                    <div className='bg-gray-600 rounded-md h-0.5 relative'>
+                    <div className='bg-gray-300 dark:bg-gray-600 rounded-md h-0.5 relative'>
                       <div
-                        className='bg-white rounded-md h-0.5'
+                        className='bg-black dark:bg-white rounded-md h-0.5'
                         style={{
                           width: `${(currentTime / totalDuration) * 100}%`,
                         }}
                       ></div>
                       <div
-                        className='absolute bg-white rounded-full w-3 h-3'
+                        className='absolute bg-black dark:bg-white rounded-full w-3 h-3'
                         style={{
                           left: `${(currentTime / totalDuration) * 100}%`,
                           top: '50%',
@@ -97,38 +96,22 @@ export default function SharedLayout() {
                         }}
                       ></div>
                     </div>
-                    <div className='flex justify-between text-zinc-400 text-xs font-normal leading-3 mt-2'>
+                    <div className='flex justify-between dark:text-gray-600 text-gray-800 text-xs font-normal leading-3 mt-2'>
                       <div>{formatTime(currentTime)}</div>
                       <div>{formatTime(totalDuration)}</div>
                     </div>
                   </div>
 
-                  <div className='flex flex-col w-full items-center bg-black rounded-2xl'>
+                  <div className='flex flex-col w-full items-center rounded-2xl'>
                     <div className='flex w-full justify-center items-center'>
                       <div className='w-full flex justify-between items-center mt-4'>
-                        <FastForward
-                          className='transform rotate-180 text-gray-500 w-6 h-6 cursor-pointer'
-                          fill='gray'
-                        />
-                        <SkipBack
-                          fill='white'
-                          className='text-white w-6 h-6 cursor-pointer'
-                        />
-                        <div className='bg-white p-3 rounded-full'>
-                          <Play
-                            fill='black'
-                            className='text-white w-8 h-8 cursor-pointer'
-                          />
+                        <FastForward className='dark:fill-gray-300 dark:text-gray-300 transform rotate-180 dark:fill-gray text-black w-6 h-6 cursor-pointer' />
+                        <SkipBack className='fill-white dark:text-white w-6 h-6 cursor-pointer' />
+                        <div className='bg-black dark:bg-white p-3 rounded-full'>
+                          <Play className='fill-white dark:fill-black dark:text-white w-8 h-8 cursor-pointer' />
                         </div>
-
-                        <SkipForward
-                          fill='white'
-                          className='text-white w-6 h-6 cursor-pointer'
-                        />
-                        <FastForward
-                          className='text-gray-500 w-6 h-6 cursor-pointer'
-                          fill='gray'
-                        />
+                        <SkipForward className='fill-white dark:text-white w-6 h-6 cursor-pointer' />
+                        <FastForward className='dark:fill-gray-300 dark:text-gray-300 text-black w-6 h-6 cursor-pointer' />
                       </div>
                     </div>
                   </div>
@@ -160,7 +143,7 @@ export default function SharedLayout() {
                 <div className='flex flex-col'>
                   <motion.p
                     layoutId={`title-${game.title}`}
-                    className='text-base font-semibold text-white'
+                    className='text-base font-semibold text-black dark:text-white'
                   >
                     {game.title}
                   </motion.p>
@@ -186,7 +169,6 @@ const GAMES = [
   {
     title: 'Billie Ellish',
     description: 'THE GREATEST',
-    longDescription: 'The song',
     image: 'https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62',
   },
 ];
