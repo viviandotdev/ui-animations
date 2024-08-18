@@ -66,6 +66,12 @@ const ui: Registry = {
 };
 
 const example: Registry = {
+  'song-preview': {
+    name: 'song-preview',
+    type: 'components:example',
+    files: ['src/registry/core/example/song-preview.tsx'],
+    component: React.lazy(() => import('@/registry/core/example/song-preview')),
+  },
   'status-button-demo': {
     name: 'status-button-demo',
     type: 'components:example',

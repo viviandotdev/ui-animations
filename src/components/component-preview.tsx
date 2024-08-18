@@ -20,6 +20,7 @@ const transition = {
 interface ComponentPreviewProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string;
   align?: 'center' | 'start' | 'end';
+  height?: string;
 }
 
 export function ComponentPreview({
@@ -27,6 +28,7 @@ export function ComponentPreview({
   children,
   className,
   align = 'center',
+  height = '250px',
   ...props
 }: ComponentPreviewProps) {
   const Codes = React.Children.toArray(children) as React.ReactElement[];
@@ -73,14 +75,12 @@ export function ComponentPreview({
           </div>
           <ComponentWrapper>
             <div
-              className={cn(
-                'preview flex min-h-[250px] w-full justify-center ',
-                {
-                  'items-center': align === 'center',
-                  'items-start': align === 'start',
-                  'items-end': align === 'end',
-                },
-              )}
+              className={cn('preview flex w-full justify-center ', {
+                'items-center': align === 'center',
+                'items-start': align === 'start',
+                'items-end': align === 'end',
+              })}
+              style={{ minHeight: height }}
             >
               <React.Suspense
                 fallback={
