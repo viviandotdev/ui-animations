@@ -1,25 +1,27 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-interface Contact {
-  title: string;
-  description: string;
-  longDescription: string;
-  image: string;
+interface Employee {
+  name: string;
+  employeeId: string;
+  role: string;
   email: string;
-  phone: string;
-  location: string;
+  phoneNumber: string;
+  department: string;
+  status: string;
+  image: string;
 }
 
 export default function SharedLayout() {
-  const [activeContact, setActiveContact] = useState<Contact | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [activeEmployee, setActiveEmployee] = useState<Employee | null>(
+    EMPLOYEES[0],
+  );
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape') {
-        setActiveContact(null);
+        setActiveEmployee(null);
       }
     }
 
@@ -30,115 +32,128 @@ export default function SharedLayout() {
   return (
     <>
       <AnimatePresence>
-        {activeContact && (
+        {activeEmployee ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className='fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center'
-            onClick={() => setActiveContact(null)}
-          >
+            className='absolute inset-0 z-10 bg-black bg-opacity-20'
+          />
+        ) : null}
+      </AnimatePresence>
+      <AnimatePresence>
+        {activeEmployee ? (
+          <div className='absolute inset-0 grid place-items-center z-10'>
             <motion.div
-              ref={containerRef}
-              layoutId={`card-${activeContact.title}`}
-              transition={{
-                layout: {
-                  duration: 0.5,
-                  type: 'spring',
-                  bounce: 0,
-                },
-              }}
-              className='inner bg-white rounded-xl p-6 w-[480px] max-w-[90%] max-h-[90vh] overflow-y-auto'
-              onClick={(e) => e.stopPropagation()}
+              layoutId={`card-${activeEmployee.name}`}
+              className='flex h-fit w-[500px] cursor-pointer flex-col items-start gap-4 overflow-hidden p-4 rounded-lg dark:bg-gray-800 dark:text-white bg-white text-black'
             >
-              <div className='flex items-start gap-4 mb-4'>
-                <motion.div layoutId={`image-${activeContact.title}`}>
+              <div className='flex items-center gap-4 w-full'>
+                <motion.div layoutId={`image-${activeEmployee.name}`}>
                   <Image
                     height={56}
                     width={56}
-                    alt='Contact'
-                    src={activeContact.image}
-                    className='rounded-full h-[56px]'
+                    alt='Employee'
+                    src={activeEmployee.image}
+                    style={{ borderRadius: 12 }}
                   />
                 </motion.div>
 
-                <div className='flex-grow'>
-                  <motion.h2
-                    layoutId={`title-${activeContact.title}`}
-                    className='text-xl font-bold mb-1'
+                <div className='flex grow items-center justify-between'>
+                  <div className='flex flex-col pr-4 p-0'>
+                    <motion.h2
+                      layoutId={`name-${activeEmployee.name}`}
+                      className='text-sm font-medium'
+                    >
+                      {activeEmployee.name}
+                    </motion.h2>
+                    <motion.p
+                      layoutId={`employeeId-${activeEmployee.employeeId}`}
+                      className='text-sm text-gray-500 dark:text-gray-400'
+                    >
+                      {activeEmployee.employeeId}
+                    </motion.p>
+                  </div>
+                  <motion.button
+                    layoutId={`button-${activeEmployee.name}`}
+                    className='text-sm font-medium'
                   >
-                    {activeContact.title}
-                  </motion.h2>
-                  <motion.p
-                    layoutId={`description-${activeContact.title}`}
-                    className='text-sm text-gray-600'
-                  >
-                    {activeContact.description}
-                  </motion.p>
+                    {activeEmployee.role}
+                  </motion.button>
                 </div>
               </div>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.1 }}
-                className='text-sm text-gray-700 mb-4'
-              >
-                {activeContact.longDescription}
-              </motion.p>
               <motion.div
+                layout
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.1 }}
-                className='text-sm text-gray-700'
+                exit={{ opacity: 0, transition: { duration: 0.05 } }}
+                className='text-sm w-full border-t mb-2 px-2'
               >
-                <p className='mb-2'>
-                  <strong>Email:</strong> {activeContact.email}
-                </p>
-                <p className='mb-2'>
-                  <strong>Phone:</strong> {activeContact.phone}
-                </p>
-                <p>
-                  <strong>Location:</strong> {activeContact.location}
-                </p>
+                <div className='grid grid-cols-2 grid-rows-2 gap-4 mt-4'>
+                  <div>
+                    <div className='text-gray-500'>Email Address</div>
+                    <div className='font-normal'>{activeEmployee.email}</div>
+                  </div>
+                  <div>
+                    <div className='text-gray-500'>Phone Number</div>
+                    <div className='font-normal'>
+                      {activeEmployee.phoneNumber}
+                    </div>
+                  </div>
+                  <div>
+                    <div className='text-gray-500'>Department</div>
+                    <div className='font-normal'>
+                      {activeEmployee.department}
+                    </div>
+                  </div>
+                  <div>
+                    <div className='text-gray-500'>Status</div>
+                    <div className='font-normal'>{activeEmployee.status}</div>
+                  </div>
+                </div>
               </motion.div>
             </motion.div>
-          </motion.div>
-        )}
+          </div>
+        ) : null}
       </AnimatePresence>
-
       <ul className='relative flex w-full flex-col items-center p-0 my-12'>
-        {CONTACTS.map((contact) => (
+        {EMPLOYEES.map((employee) => (
           <motion.li
-            layoutId={`card-${contact.title}`}
-            key={contact.title}
-            onClick={() => setActiveContact(contact)}
-            className='flex w-[386px] cursor-pointer items-center gap-4 p-4 hover:bg-gray-100 rounded-lg'
+            layoutId={`card-${employee.name}`}
+            key={employee.name}
+            onClick={() => setActiveEmployee(employee)}
+            className='flex w-96 cursor-pointer items-center gap-4 px-4 py-2 '
           >
-            <motion.div layoutId={`image-${contact.title}`}>
+            <motion.div layoutId={`image-${employee.name}`}>
               <Image
                 height={56}
                 width={56}
-                alt='Contact'
-                src={contact.image}
-                className='rounded-full h-[56px]'
+                alt='Employee'
+                style={{ borderRadius: 12 }}
+                src={employee.image}
               />
             </motion.div>
-
-            <div className='flex-grow'>
-              <motion.h2
-                layoutId={`title-${contact.title}`}
-                className='text-lg font-semibold'
+            <div className='flex flex-grow items-center justify-between border-b border-gray-200 dark:border-gray-700 last:border-none'>
+              <div className='flex flex-col py-4'>
+                <motion.h2
+                  layoutId={`name-${employee.name}`}
+                  className='text-sm font-medium'
+                >
+                  {employee.name}
+                </motion.h2>
+                <motion.p
+                  layoutId={`employeeId-${employee.employeeId}`}
+                  className='text-sm text-gray-500 dark:text-gray-400'
+                >
+                  {employee.employeeId}
+                </motion.p>
+              </div>
+              <motion.button
+                layoutId={`button-${employee.name}`}
+                className='text-sm font-medium'
               >
-                {contact.title}
-              </motion.h2>
-              <motion.p
-                layoutId={`description-${contact.title}`}
-                className='text-sm text-gray-600'
-              >
-                {contact.description}
-              </motion.p>
+                {employee.role}
+              </motion.button>
             </div>
           </motion.li>
         ))}
@@ -147,38 +162,35 @@ export default function SharedLayout() {
   );
 }
 
-const CONTACTS = [
+const EMPLOYEES = [
   {
-    title: 'John Doe',
-    description: 'Software Engineer at TechCorp',
-    longDescription:
-      'John has over 10 years of experience in the tech industry, specializing in software development and project management. He is currently leading a team of developers at TechCorp, where they work on innovative software solutions.',
-    image:
-      'https://webgradients.com/public/webgradients_png/001%20Warm%20Flame.png',
-    email: 'john.doe@techcorp.com',
-    phone: '+1 (555) 555-1234',
-    location: 'San Francisco, CA, USA',
+    name: 'John Doe',
+    employeeId: 'WPD230501',
+    role: 'Sr UI/UX Designer',
+    email: 'john.doe@example.com',
+    phoneNumber: '+1-234-567-8901',
+    department: 'Engineering',
+    status: 'Active',
+    image: '/memoji/memoji-1.png',
   },
   {
-    title: 'Jane Smith',
-    description: 'Marketing Manager at MarketGenius',
-    longDescription:
-      'Jane is a seasoned marketing professional with a knack for creating compelling campaigns. At MarketGenius, she leads the marketing team, driving brand awareness and customer engagement through strategic initiatives.',
-    image:
-      'https://webgradients.com/public/webgradients_png/009%20Frozen%20Dreams.png',
-    email: 'jane.smith@marketgenius.com',
-    phone: '+1 (555) 555-5678',
-    location: 'New York, NY, USA',
+    name: 'Jane Smith',
+    employeeId: 'ZSK230503',
+    role: 'Software Engineer',
+    email: 'jane.smith@example.com',
+    phoneNumber: '+1-234-567-8902',
+    department: 'Engineering',
+    status: 'Active',
+    image: '/memoji/memoji-2.png',
   },
   {
-    title: 'Emily Johnson',
-    description: 'UX Designer at DesignStudio',
-    longDescription:
-      'Emily is a talented UX designer with an eye for detail. She has worked on numerous high-profile projects, helping to create user-friendly and aesthetically pleasing designs. She is currently with DesignStudio, where she continues to push the boundaries of UX design.',
-    image:
-      'https://webgradients.com/public/webgradients_png/014%20Amy%20Crisp.png',
-    email: 'emily.johnson@designstudio.com',
-    phone: '+1 (555) 555-9876',
-    location: 'Los Angeles, CA, USA',
+    name: 'Emma Thompson',
+    employeeId: 'CZQ230505',
+    role: 'Product Manager',
+    email: 'emma.thompson@example.com',
+    phoneNumber: '+1-234-567-8903',
+    department: 'Product',
+    status: 'Active',
+    image: '/memoji/memoji-3.png',
   },
 ];

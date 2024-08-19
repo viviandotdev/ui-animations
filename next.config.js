@@ -18,6 +18,16 @@ const nextConfig = {
         hostname: 'webgradients.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images-na.ssl-images-amazon.com',
+        port: '',
+      },
     ],
   },
 
