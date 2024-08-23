@@ -63,6 +63,12 @@ const ui: Registry = {
       () => import('@/registry/core/ui/shared-layout-modal'),
     ),
   },
+  calendar: {
+    name: 'calendar',
+    type: 'components:ui',
+    files: ['src/registry/core/ui/calendar.tsx'],
+    component: React.lazy(() => import('@/registry/core/ui/calendar')),
+  },
 };
 
 const example: Registry = {
