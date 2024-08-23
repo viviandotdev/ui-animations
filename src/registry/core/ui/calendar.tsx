@@ -13,6 +13,13 @@ import {
 import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { useState } from 'react';
+
+const variants = {
+  enter: { x: '100%' },
+  center: { x: '0%' },
+  exit: { x: '-100%' },
+};
+
 export default function Page() {
   const [monthString, setMonthString] = useState(format(new Date(), 'yyyy-MM'));
   const month = parse(monthString, 'yyyy-MM', new Date());
@@ -43,29 +50,43 @@ export default function Page() {
               <AnimatePresence mode='popLayout' initial={false}>
                 <motion.div
                   key={monthString}
-                  initial={{ x: '100%' }}
-                  animate={{ x: '0%' }}
-                  exit={{ x: '-100%' }}
+                  // variants={variants}
+                  initial='enter'
+                  animate='center'
+                  exit='exit'
                 >
                   <header className='relative flex justify-between px-8'>
-                    <button
+                    <motion.button
+                      variants={{
+                        exit: { visibility: 'hidden' },
+                      }}
                       className='z-10 rounded-full p-1.5 hover:bg-stone-100'
                       onClick={previousMonth}
                     >
                       <ChevronLeftIcon className='h-4 w-4' />
-                    </button>
-                    <p className='absolute inset-0 flex items-center justify-center font-semibold'>
+                    </motion.button>
+                    <motion.p
+                      variants={variants}
+                      className='absolute inset-0 flex items-center justify-center font-semibold'
+                    >
                       {format(month, 'MMMM yyyy')}
-                    </p>
-                    <button
+                    </motion.p>
+                    <motion.button
+                      variants={{
+                        exit: { visibility: 'hidden' },
+                      }}
                       className='z-10 rounded-full p-1.5 hover:bg-stone-100'
                       onClick={nextMonth}
                     >
                       <ChevronRightIcon className='h-4 w-4' />
-                    </button>
+                    </motion.button>
                   </header>
-
-                  <div className='mt-6 grid grid-cols-7 gap-y-6 px-8 text-sm'>
+                  <motion.div
+                    variants={{
+                      exit: { visibility: 'hidden' },
+                    }}
+                    className='mt-6 grid grid-cols-7 gap-y-6 px-8 text-sm'
+                  >
                     <span className='font-medium text-stone-500'>Su</span>
                     <span className='font-medium text-stone-500'>Mo</span>
                     <span className='font-medium text-stone-500'>Tu</span>
@@ -73,6 +94,12 @@ export default function Page() {
                     <span className='font-medium text-stone-500'>Th</span>
                     <span className='font-medium text-stone-500'>Fr</span>
                     <span className='font-medium text-stone-500'>Sa</span>
+                  </motion.div>
+
+                  <motion.div
+                    variants={variants}
+                    className='mt-6 grid grid-cols-7 gap-y-6 px-8 text-sm'
+                  >
                     {days.map((day) => (
                       <span
                         className={`${
@@ -83,7 +110,7 @@ export default function Page() {
                         {format(day, 'd')}
                       </span>
                     ))}
-                  </div>
+                  </motion.div>
                 </motion.div>
               </AnimatePresence>
             </div>
