@@ -1,6 +1,6 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, Transition } from 'framer-motion';
 import { ComponentProps, createContext, ReactNode, useContext } from 'react';
 import useMeasure from 'react-use-measure';
 
@@ -8,12 +8,14 @@ const PanelContext = createContext({ value: '' });
 
 interface ResizablePanelProps extends ComponentProps<'div'> {
   children: ReactNode;
-  value: string;
+  value?: string;
+  transition?: Transition;
 }
 
 const ResizablePanel: React.FC<ResizablePanelProps> = ({
   children,
   value,
+  transition,
   ...rest
 }) => {
   const [ref, bounds] = useMeasure();
@@ -21,11 +23,11 @@ const ResizablePanel: React.FC<ResizablePanelProps> = ({
   return (
     <motion.div
       animate={{ height: bounds.height > 0 ? bounds.height : undefined }}
-      transition={{ type: 'spring', bounce: 0.3, duration: 0.7 }}
-      style={{ overflow: 'hidden', position: 'relative' }}
+      transition={transition}
+      className='relative overflow-hidden'
     >
       <div ref={ref}>
-        <PanelContext.Provider value={{ value }}>
+        <PanelContext.Provider value={{ value: value ? value : '' }}>
           <div {...rest}>{children}</div>
         </PanelContext.Provider>
       </div>
@@ -34,7 +36,7 @@ const ResizablePanel: React.FC<ResizablePanelProps> = ({
 };
 
 interface ResizablePanelContentProps extends ComponentProps<'div'> {
-  values: string[];
+  values?: string[];
   children: ReactNode;
 }
 
@@ -50,7 +52,7 @@ const ResizablePanelContent: React.FC<ResizablePanelContentProps> = ({
   ...rest
 }) => {
   const panelContext = useContext(PanelContext);
-  const isActive = values.includes(panelContext.value);
+  const isActive = values ? values.includes(panelContext.value) : true;
 
   return (
     <AnimatePresence mode='popLayout' initial={false}>

@@ -30,7 +30,10 @@ export default function ResizablePanelDemo() {
             into your inbox
           </p>
         </div>
-        <ResizablePanel value={status}>
+        <ResizablePanel
+          transition={{ type: 'spring', bounce: 0.3, duration: 0.7 }}
+          value={status}
+        >
           <ResizablePanelContent values={['idle', 'loading']}>
             <form className='px-8 pb-8 pt-6'>
               <div className='flex flex-col gap-6'>
