@@ -62,10 +62,10 @@ export default function Page() {
   });
   return (
     <MotionConfig transition={transition}>
-      <div className='flex w-full items-start bg-stone-800 py-16 text-stone-900'>
-        <div className='relative mx-auto w-full max-w-md  overflow-hidden rounded-2xl bg-white'>
+      <div className='flex w-full items-start py-16 text-stone-900'>
+        <div className='relative mx-auto w-full max-w-xs  overflow-hidden rounded-2xl bg-white'>
           <div className='py-8'>
-            <div className='flex flex-col justify-center rounded text-center'>
+            <div className='flex flex-col px-3 justify-center rounded-2xl text-center border shadow-md py-4 '>
               <ResizablePanel>
                 <AnimatePresence
                   mode='popLayout'
@@ -79,34 +79,37 @@ export default function Page() {
                     animate='center'
                     exit='exit'
                   >
-                    <header className='relative flex justify-between px-8'>
-                      <motion.button
-                        variants={{
-                          exit: { visibility: 'hidden' },
-                        }}
-                        className='z-10 rounded-full p-1.5 hover:bg-stone-100'
-                        onClick={previousMonth}
-                      >
-                        <ChevronLeftIcon className='h-4 w-4' />
-                      </motion.button>
-                      <motion.p
-                        variants={variants}
-                        custom={direction}
-                        className='absolute inset-0 flex items-center justify-center font-semibold'
-                      >
-                        {format(month, 'MMMM yyyy')}
-                      </motion.p>
-                      <motion.button
-                        variants={{
-                          exit: { visibility: 'hidden' },
-                        }}
-                        className='z-10 rounded-full p-1.5 hover:bg-stone-100'
-                        onClick={nextMonth}
-                      >
-                        <ChevronRightIcon className='h-4 w-4' />
-                      </motion.button>
+                    <header className='relative flex justify-between px-8 '>
+                      <div className='border relative w-full flex justify-between py-1'>
+                        <motion.button
+                          variants={{
+                            exit: { visibility: 'hidden' },
+                          }}
+                          className='z-10 p-2 rounded-full hover:bg-stone-100 '
+                          onClick={previousMonth}
+                        >
+                          <ChevronLeftIcon className='h-4 w-4' />
+                        </motion.button>
+                        <motion.p
+                          variants={variants}
+                          custom={direction}
+                          className='z-0 absolute inset-0 flex items-center justify-center font-semibold'
+                        >
+                          {format(month, 'MMMM yyyy')}
+                        </motion.p>
+                        <motion.button
+                          variants={{
+                            exit: { visibility: 'hidden' },
+                          }}
+                          className='z-10 p-2 rounded-full hover:bg-stone-100'
+                          onClick={nextMonth}
+                        >
+                          <ChevronRightIcon className='h-4 w-4' />
+                        </motion.button>
+                      </div>
+
                       <motion.div
-                        className='absolute inset-0'
+                        className='absolute inset-0 rounded-2xl border'
                         style={{
                           backgroundImage:
                             'linear-gradient(to right, white 15%, transparent 30%, transparent 70%, white 85%)',
@@ -120,7 +123,7 @@ export default function Page() {
                       variants={{
                         exit: { visibility: 'hidden' },
                       }}
-                      className='mt-6 grid grid-cols-7 gap-y-6 px-8 text-sm'
+                      className='mt-4 grid grid-cols-7 gap-y-4 px-2 text-sm'
                     >
                       <span className='font-medium text-stone-500'>Su</span>
                       <span className='font-medium text-stone-500'>Mo</span>
@@ -134,7 +137,7 @@ export default function Page() {
                     <motion.div
                       variants={variants}
                       custom={direction}
-                      className='mt-6 grid grid-cols-7 gap-y-6 px-8 text-sm'
+                      className='mt-4 grid grid-cols-7 gap-y-4 px-2 text-sm'
                     >
                       {days.map((day) => (
                         <span
