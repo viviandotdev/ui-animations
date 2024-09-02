@@ -69,6 +69,18 @@ const ui: Registry = {
     files: ['src/registry/core/ui/calendar.tsx'],
     component: React.lazy(() => import('@/registry/core/ui/calendar')),
   },
+  'swipe-cards': {
+    name: 'swipe-cards',
+    type: 'components:ui',
+    files: ['src/registry/core/ui/swipe-cards.tsx'],
+    component: React.lazy(() => import('@/registry/core/ui/swipe-cards')),
+  },
+  'page-indicators': {
+    name: 'page-indicators',
+    type: 'components:ui',
+    files: ['src/registry/core/ui/page-indicators.tsx'],
+    component: React.lazy(() => import('@/registry/core/ui/page-indicators')),
+  },
 };
 
 const example: Registry = {
