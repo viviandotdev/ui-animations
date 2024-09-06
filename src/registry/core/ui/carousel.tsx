@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+import { motion } from 'framer-motion';
 interface CarouselProps {}
 
 const images = [
@@ -16,9 +17,17 @@ const Carousel: React.FC<CarouselProps> = ({}) => {
   return (
     <div className='h-full bg-black'>
       <div className='mx-auto flex h-full max-w-7xl flex-col justify-center'>
-        <div className='relative'>
-          <img src={images[index]} className='aspect-[3/2] object-cover' />
-
+        <div className='relative overflow-hidden'>
+          {/* <img src={images[index]} className='aspect-[3/2] object-cover' /> */}
+          <motion.div animate={{ x: `-${index * 100}` }} className='flex'>
+            {images.map((image, i) => (
+              <img
+                key={image}
+                src={image}
+                className='aspect-[3/2] object-cover'
+              />
+            ))}
+          </motion.div>
           {index > 0 && (
             <button
               className='absolute left-2 top-1/2 -mt-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/60 transition hover:bg-white/80'
