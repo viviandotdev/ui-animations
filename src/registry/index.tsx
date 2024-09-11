@@ -69,6 +69,12 @@ const ui: Registry = {
     files: ['src/registry/core/ui/calendar.tsx'],
     component: React.lazy(() => import('@/registry/core/ui/calendar')),
   },
+  carousel: {
+    name: 'carousel',
+    type: 'components:ui',
+    files: ['src/registry/core/ui/carousel.tsx'],
+    component: React.lazy(() => import('@/registry/core/ui/carousel')),
+  },
 };
 
 const example: Registry = {
