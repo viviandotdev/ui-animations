@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
+import React, { useState } from 'react';
 
 const pages = [1, 2, 3, 4, 5, 6, 7, 8];
 const indicatorSize = 10;

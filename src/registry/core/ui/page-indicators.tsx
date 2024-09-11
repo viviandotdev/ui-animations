@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import { Page } from 'framer';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 const pages = [1, 2, 3, 4, 5];
 const indicatorSize = 10;
