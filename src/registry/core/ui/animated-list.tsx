@@ -54,11 +54,11 @@ export default function AnimatedList() {
 
   return (
     <div className='w-full items-center justify-center overscroll-y-contain py-8 '>
-      <div className='relative flex flex-col max-h-[300px] w-full max-w-lg mx-auto my-8 bg-white dark:bg-[#1e1e1e] rounded-xl border border-zinc-200 shadow-md dark:border-none dark:shadow-none'>
-        <div className='flex justify-between border-b border-zinc-200 dark:border-zinc-800 p-4'>
+      <div className='relative flex flex-col max-h-[300px] w-full max-w-lg mx-auto my-8 bg-white dark:bg-black rounded-xl border border-zinc-200 shadow-md dark:border-stone-700 dark:shadow-none'>
+        <div className='flex justify-between border-b border-zinc-200 dark:border-stone-700 p-4'>
           <button
             onClick={addTodo}
-            className='text-zinc-400 dark:text-zinc-700 transition-colors duration-600 ease-in hover:text-zinc-800 dark:hover:text-zinc-300 active:text-zinc-900 dark:active:text-zinc-200'
+            className='text-zinc-400 dark:text-stone-400 transition-colors duration-600 ease-in hover:text-zinc-800 dark:hover:text-stone-300 active:text-zinc-900 dark:active:text-stone-200'
           >
             <Icons.Plus className='h-6 w-6' />
           </button>
@@ -108,14 +108,14 @@ const TodoItem: React.FC<{
       }}
       style={{ overflow: 'hidden' }}
       transition={{ ease: [0.32, 0.72, 0, 1] }}
-      className='relative flex flex-col justify-end bg-white dark:bg-[#1e1e1e]'
+      className='relative flex flex-col justify-end bg-white dark:bg-black'
     >
-      <div className='flex items-center py-4 px-4 gap-4 hover:bg-zinc-100 dark:hover:bg-[#2e2e2e] rounded-lg'>
+      <div className='flex items-center py-4 px-4 gap-4 hover:bg-zinc-100 dark:hover:bg-stone-800 rounded-lg'>
         <div className='flex cursor-pointer'>
           <button className='relative flex items-center'>
             <input
               type='checkbox'
-              className='relative h-5 w-5 cursor-pointer appearance-none rounded-md border-2 border-zinc-300 dark:border-zinc-700 transition-all duration-500 checked:border-blue-500 checked:bg-blue-500'
+              className='relative h-5 w-5 cursor-pointer appearance-none rounded-md border-2 border-zinc-300 dark:border-stone-700 transition-all duration-500 checked:border-blue-500 checked:bg-blue-500'
               checked={isChecked}
               onChange={handleToggle}
             />
@@ -124,7 +124,7 @@ const TodoItem: React.FC<{
             </div>
           </button>
         </div>
-        <p className='truncate text-sm text-zinc-800 dark:text-white'>
+        <p className='truncate text-sm text-zinc-800 dark:text-stone-100'>
           {todo.text}
         </p>
       </div>

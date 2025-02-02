@@ -44,7 +44,7 @@ export default function SharedLayout() {
           <div className='absolute inset-0 grid place-items-center z-10'>
             <motion.div
               layoutId={`card-${activeEmployee.name}`}
-              className='flex h-fit w-[500px] cursor-pointer flex-col items-start gap-4 overflow-hidden p-4 rounded-lg dark:bg-gray-800 dark:text-white bg-white text-black'
+              className='flex h-fit w-[500px] cursor-pointer flex-col items-start gap-4 overflow-hidden p-4 rounded-lg dark:bg-black dark:border dark:border-gray-800 dark:text-white bg-white text-black'
             >
               <div className='flex items-center gap-4 w-full'>
                 <motion.div layoutId={`image-${activeEmployee.name}`}>

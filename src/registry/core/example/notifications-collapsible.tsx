@@ -53,7 +53,7 @@ const NotificationComponent: React.FC<NotificationComponentProps> = ({
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -50 }}
-        className=' w-80 bg-white rounded-lg shadow-lg overflow-hidden'
+        className='w-80 bg-white dark:bg-black rounded-lg shadow-lg overflow-hidden'
       >
         <div className='bg-blue-500 px-4 py-2 flex justify-between items-center'>
           <div className='flex items-center text-white'>
@@ -85,7 +85,7 @@ const NotificationComponent: React.FC<NotificationComponentProps> = ({
               transition={{ duration: 0.3 }}
               className='overflow-hidden'
             >
-              <ul className='divide-y divide-gray-200'>
+              <ul className='divide-y divide-stone-200 dark:divide-stone-700'>
                 {notifications.map((notification, index) => (
                   <motion.li
                     key={index}
@@ -93,12 +93,12 @@ const NotificationComponent: React.FC<NotificationComponentProps> = ({
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className='px-4 py-3 hover:bg-gray-50'
+                    className='px-4 py-3 hover:bg-stone-50 dark:hover:bg-stone-700'
                   >
-                    <h4 className='font-medium text-gray-800'>
+                    <h4 className='font-medium text-stone-800 dark:text-stone-100'>
                       {notification.title}
                     </h4>
-                    <p className='text-sm text-gray-600'>
+                    <p className='text-sm text-stone-600 dark:text-stone-300'>
                       {notification.message}
                     </p>
                   </motion.li>

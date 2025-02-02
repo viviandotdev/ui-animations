@@ -65,7 +65,7 @@ const MultiStepComponentDemo = () => {
   };
 
   return (
-    <div className='relative bg-white max-w-[420px] overflow-hidden rounded-xl border shadow'>
+    <div className='relative bg-white dark:bg-black max-w-[420px] overflow-hidden rounded-xl border shadow'>
       <MultiStepComponent
         transition={{ duration: 0.5, type: 'spring', bounce: 0 }}
         variants={{
@@ -172,6 +172,7 @@ const Feedback = ({
         'focus:outline-none focus:ring-4 focus:ring-gray-300 focus:ring-opacity-50',
         'focus:shadow-[0_0_0_1px_rgba(0,0,0,0.1),0_4px_6px_-1px_rgba(0,0,0,0.1)]',
         'transition-all duration-200 ease-in-out',
+        'dark:black dark:text-white dark:border-gray-900',
       )}
     />
     <div className='flex w-full gap-2'></div>
