@@ -63,9 +63,9 @@ export default function Page() {
   return (
     <MotionConfig transition={transition}>
       <div className='flex w-full items-start py-16 text-stone-900'>
-        <div className='relative mx-auto w-full max-w-xs  overflow-hidden rounded-2xl bg-white'>
+        <div className='relative mx-auto w-full max-w-xs  overflow-hidden rounded-2xl'>
           <div className='py-8'>
-            <div className='flex flex-col px-3 justify-center rounded-2xl text-center border shadow-md py-4 '>
+            <div className='flex flex-col px-3 justify-center rounded-2xl text-center border shadow-md py-4 bg-white'>
               <ResizablePanel>
                 <AnimatePresence
                   mode='popLayout'

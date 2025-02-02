@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
+import { docsConfig } from '@/constant/docs';
 import { registry } from '@/registry';
 import { RegistryEntry } from '@/registry/schema';
 
@@ -22,8 +23,22 @@ export const Preview: React.FC = () => {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [mounted, setMounted] = useState(false);
+
+  const activeComponents = docsConfig.sidebarNav.flatMap((section) => {
+    return section.items?.map((item) => {
+      const href = item.href;
+      if (href === undefined) return '';
+      const sanitizedHref = href.endsWith('/') ? href.slice(0, -1) : href;
+      const lastSegment = sanitizedHref.split('/').pop();
+
+      return lastSegment;
+    });
+  });
   const uiComponents: RegistryEntry[] = Object.entries(registry)
-    .filter(([_, value]) => value.type === 'components:ui')
+    .filter(
+      ([_, value]) =>
+        value.type === 'components:ui' && activeComponents.includes(value.name),
+    )
     .map(([_, value]) => ({
       ...value,
     }));

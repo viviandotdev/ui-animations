@@ -15,7 +15,7 @@ export default function ResizablePanelDemo() {
   return (
     <div className='mx-auto w-full max-w-md'>
       <div className='relative overflow-hidden rounded-lg bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-sm'>
-        <div className='flex flex-col gap-2 px-8 pt-8'>
+        <div className='flex flex-col gap-2 px-8 pt-8 text-left '>
           <div className='w-14 h-14 p-4 bg-zinc-100 dark:bg-zinc-900 rounded-lg shadow border border-zinc-200 dark:border-zinc-800 flex items-center justify-center'>
             <div className='w-6 h-6'>
               <Mail className='w-6 h-6 text-zinc-900 dark:text-zinc-100' />
@@ -40,7 +40,7 @@ export default function ResizablePanelDemo() {
                 <div className='flex flex-col gap-1.5'>
                   <label
                     htmlFor='email'
-                    className='text-sm font-medium text-zinc-900 dark:text-zinc-200'
+                    className='text-left  text-sm font-medium text-zinc-900 dark:text-zinc-200'
                   >
                     Email
                   </label>

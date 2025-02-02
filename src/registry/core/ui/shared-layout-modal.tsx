@@ -14,9 +14,7 @@ interface Employee {
 }
 
 export default function SharedLayout() {
-  const [activeEmployee, setActiveEmployee] = useState<Employee | null>(
-    EMPLOYEES[0],
-  );
+  const [activeEmployee, setActiveEmployee] = useState<Employee | null>(null);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {

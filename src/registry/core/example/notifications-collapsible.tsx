@@ -25,14 +25,24 @@ function Collapsible() {
   return (
     <div className='App'>
       <NotificationComponent notifications={notifications} />
-      {/* Rest of your app */}
     </div>
   );
 }
 
 export default Collapsible;
 
-const NotificationComponent = ({ notifications }) => {
+interface Notification {
+  title: string;
+  message: string;
+}
+
+interface NotificationComponentProps {
+  notifications: Notification[];
+}
+
+const NotificationComponent: React.FC<NotificationComponentProps> = ({
+  notifications,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => setIsOpen(!isOpen);

@@ -20,7 +20,7 @@ const ui: Registry = {
     type: 'components:ui',
     files: ['src/registry/core/ui/multi-step-component.tsx'],
     component: React.lazy(
-      () => import('@/registry/core/example/multi-step-survey-demo'), //demo component
+      () => import('@/registry/core/example/multi-step-survey-demo'),
     ),
   },
   'animated-check': {
@@ -28,7 +28,7 @@ const ui: Registry = {
     type: 'components:ui',
     files: ['src/registry/core/ui/animated-check.tsx'],
     component: React.lazy(
-      () => import('@/registry/core/example/checkbox-demo'), //demo component
+      () => import('@/registry/core/example/checkbox-demo'),
     ),
   },
   'animated-list': {
@@ -42,18 +42,24 @@ const ui: Registry = {
     type: 'components:ui',
     files: ['src/registry/core/ui/collapsible.tsx'],
     component: React.lazy(
-      () => import('@/registry/core/example/collapsible-demo'), //demo component
+      () => import('@/registry/core/example/collapsible-demo'),
     ),
   },
   'resizable-panel': {
     name: 'resizable-panel',
     type: 'components:ui',
     files: ['src/registry/core/ui/resizable-panel.tsx'],
+    component: React.lazy(
+      () => import('@/registry/core/example/resizable-panel-demo'),
+    ),
   },
   'status-button': {
     name: 'status-button',
     type: 'components:ui',
     files: ['src/registry/core/ui/status-button.tsx'],
+    component: React.lazy(
+      () => import('@/registry/core/example/status-button-demo'),
+    ),
   },
   'shared-layout-modal': {
     name: 'shared-layout-modal',
@@ -87,50 +93,50 @@ const example: Registry = {
   'status-button-demo': {
     name: 'status-button-demo',
     type: 'components:example',
-    files: ['src/registry/core/example/status-button-demo.tsx'], //code file
+    files: ['src/registry/core/example/status-button-demo.tsx'],
     component: React.lazy(
-      () => import('@/registry/core/example/status-button-demo'), //demo component
+      () => import('@/registry/core/example/status-button-demo'),
     ),
   },
   'resizable-panel-demo': {
     name: 'resizable-panel-demo',
     type: 'components:example',
-    files: ['src/registry/core/example/resizable-panel-demo.tsx'], //code file
+    files: ['src/registry/core/example/resizable-panel-demo.tsx'],
     component: React.lazy(
-      () => import('@/registry/core/example/resizable-panel-demo'), //demo component
+      () => import('@/registry/core/example/resizable-panel-demo'),
     ),
   },
   'collapsible-demo': {
     name: 'collapsible-demo',
     type: 'components:example',
-    files: ['src/registry/core/example/collapsible-demo.tsx'], //code file
+    files: ['src/registry/core/example/collapsible-demo.tsx'],
     component: React.lazy(
-      () => import('@/registry/core/example/collapsible-demo'), //demo component
+      () => import('@/registry/core/example/collapsible-demo'),
     ),
   },
   'copy-button-demo': {
     name: 'copy-button-demo',
     type: 'components:example',
-    files: ['src/registry/core/example/copy-button-demo.tsx'], //code file
+    files: ['src/registry/core/example/copy-button-demo.tsx'],
     component: React.lazy(
-      () => import('@/registry/core/example/copy-button-demo'), //demo component
+      () => import('@/registry/core/example/copy-button-demo'),
     ),
   },
 
   'checkbox-demo': {
     name: 'checkbox-demo',
     type: 'components:example',
-    files: ['src/registry/core/example/checkbox-demo.tsx'], //code file
+    files: ['src/registry/core/example/checkbox-demo.tsx'],
     component: React.lazy(
-      () => import('@/registry/core/example/checkbox-demo'), //demo component
+      () => import('@/registry/core/example/checkbox-demo'),
     ),
   },
   'multi-step-survey-demo': {
     name: 'multi-step-survey-demo',
     type: 'components:example',
-    files: ['src/registry/core/example/multi-step-survey-demo.tsx'], //code file
+    files: ['src/registry/core/example/multi-step-survey-demo.tsx'],
     component: React.lazy(
-      () => import('@/registry/core/example/multi-step-survey-demo'), //demo component
+      () => import('@/registry/core/example/multi-step-survey-demo'),
     ),
   },
   'multi-step-wizard-demo': {
@@ -144,17 +150,17 @@ const example: Registry = {
   'magnified-dock-demo': {
     name: 'magnified-dock-demo',
     type: 'components:example',
-    files: ['src/registry/core/example/magnified-dock-demo.tsx'], //code file
+    files: ['src/registry/core/example/magnified-dock-demo.tsx'],
     component: React.lazy(
-      () => import('@/registry/core/example/magnified-dock-demo'), //demo file
+      () => import('@/registry/core/example/magnified-dock-demo'),
     ),
   },
   'animated-tabs-demo': {
     name: 'animated-tabs-demo',
     type: 'components:example',
-    files: ['src/registry/core/example/animated-tabs-demo.tsx'], //code file
+    files: ['src/registry/core/example/animated-tabs-demo.tsx'],
     component: React.lazy(
-      () => import('@/registry/core/example/animated-tabs-demo'), //demo file
+      () => import('@/registry/core/example/animated-tabs-demo'),
     ),
   },
 };

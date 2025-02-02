@@ -10,7 +10,7 @@ import { MultiStepComponent } from '@/registry/core/ui/multi-step-component';
 const MultiStepComponentDemo = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [direction, setDirection] = useState(0);
-  const [selectedRating, setSelectedRating] = useState(null);
+  const [selectedRating, setSelectedRating] = useState(0);
   const [feedbackContent, setFeedbackContent] = useState('');
 
   const steps = [
@@ -124,7 +124,7 @@ export const RateExperience = ({
   setSelectedRating,
 }: {
   selectedRating: number | null;
-  setSelectedRating: React.Dispatch<React.SetStateAction<null>>;
+  setSelectedRating: React.Dispatch<React.SetStateAction<number>>;
 }) => (
   <div className='flex w-full flex-col items-center gap-3'>
     <div className='mb-3 flex w-full justify-between'>

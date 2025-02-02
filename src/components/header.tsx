@@ -4,7 +4,6 @@ import React from 'react';
 
 import { Container } from '@/components/container';
 import { ModeToggle } from '@/components/mode-toggle';
-import { Button } from '@/components/ui/button';
 
 export const Header = () => {
   return (
@@ -15,12 +14,12 @@ export const Header = () => {
           UI Animations
         </Link>
         <div className='ml-auto flex gap-2 h-full items-center'>
-          <Link className='mr-6 text-sm' href='#'>
+          {/* <Link className='mr-6 text-sm' href='#'>
             Log in
           </Link>
           <Button asChild variant='primary'>
             <Link href='#'>Sign up</Link>
-          </Button>
+          </Button> */}
           <ModeToggle />
         </div>
       </Container>
