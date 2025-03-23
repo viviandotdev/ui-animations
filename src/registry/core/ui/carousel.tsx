@@ -1,31 +1,47 @@
+'use client';
 import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
-const images = [
-  'https://images.unsplash.com/photo-1725267385461-cab515fc1bbe?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  'https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  'https://images.unsplash.com/photo-1725267385461-cab515fc1bbe?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  'https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  'https://images.unsplash.com/photo-1593642634367-d91a135587b5?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-];
-const collapsedAspectRatio = 1 / 3;
-const fullAspectRatio = 3 / 2;
-const gap = 2;
-const margin = 12;
+interface CarouselProps {}
 
-const Carousel: React.FC = () => {
-  const [index, setIndex] = useState(0);
+const images = [
+  'https://images.unsplash.com/photo-1554034483-04fda0d3507b?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Z3JhZGllbnQlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fHww',
+  'https://images.unsplash.com/photo-1628367282397-bf7cb7d6e4b3?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MXwxMzA5OTc1fHxlbnwwfHx8fHw%3D',
+  'https://images.unsplash.com/photo-1508615070457-7baeba4003ab?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTZ8MTMwOTk3NXx8ZW58MHx8fHx8',
+];
+const Carousel: React.FC<CarouselProps> = () => {
+  const [current, setCurrent] = useState(0);
+  const [aspectRatio, setAspectRatio] = useState('16/9'); // default aspect ratio
+
+  useEffect(() => {
+    // Get the dimensions of the first image to set the aspect ratio
+    const img = new window.Image();
+    img.src = images[0];
+    img.onload = () => {
+      setAspectRatio(`${img.width}/${img.height}`);
+    };
+  }, []);
+
+  const onPrevClick = () => {
+    if (current > 0) {
+      setCurrent(current - 1);
+    }
+  };
+
+  const onNextClick = () => {
+    if (current < images.length - 1) {
+      setCurrent(current + 1);
+    }
+  };
+
   useEffect(() => {
     function handleKeyPress(e: KeyboardEvent) {
-      if (e.key === 'ArrowLeft') {
-        if (index > 0) {
-          setIndex(index - 1);
-        }
-      } else if (e.key === 'ArrowRight') {
-        if (index < images.length - 1) {
-          setIndex(index + 1);
-        }
+      if (e.key === 'ArrowLeft' && current > 0) {
+        setCurrent(current - 1);
+      } else if (e.key === 'ArrowRight' && current < images.length - 1) {
+        setCurrent(current + 1);
       }
     }
     document.addEventListener('keydown', handleKeyPress);
@@ -33,96 +49,87 @@ const Carousel: React.FC = () => {
     return () => {
       document.removeEventListener('keydown', handleKeyPress);
     };
-  }, [index]);
+  }, [current]);
 
   return (
-    <MotionConfig transition={{ duration: 0.8, ease: [0.32, 0.72, 0, 1] }}>
-      <div className='h-full bg-black'>
-        <div className='mx-auto flex h-full max-w-7xl flex-col justify-center'>
-          <div className='relative overflow-hidden'>
-            <motion.div animate={{ x: `-${index * 100}%` }} className='flex'>
-              {images.map((image, i) => (
-                <motion.img
-                  key={image}
+    <main className='px-10 animate-fade-in flex w-full flex-col items-center'>
+      <MotionConfig transition={{ type: 'spring', bounce: 0, duration: 0.7 }}>
+        <div
+          className='relative mx-auto w-full overflow-hidden'
+          style={{ aspectRatio: aspectRatio }}
+        >
+          <motion.div
+            className='flex h-full gap-4 w-full'
+            animate={{ x: `calc(-${current * 100}% - ${current}rem)` }}
+          >
+            {images.map((image, i) => (
+              <div
+                key={`image-${i}`}
+                className='relative h-full w-full shrink-0'
+              >
+                <Image
                   src={image}
-                  alt='image'
-                  animate={{ opacity: i === index ? 1 : 0.4 }}
-                  className='aspect-[3/2] object-cover'
+                  alt={`Image ${i + 1}`}
+                  fill
+                  className='rounded-md object-contain'
+                  priority={i === 0}
                 />
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Navigation Arrows */}
+          <AnimatePresence initial={false}>
+            {current > 0 && (
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.8 }}
+                exit={{ opacity: 0, pointerEvents: 'none' }}
+                whileHover={{ opacity: 0.8 }}
+                className='pointer-events absolute top-1/2 left-2 z-20 -mt-4 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full bg-[#c2c2c3]/80 text-white backdrop-blur-xs transition-all sm:h-8 sm:w-8'
+                onClick={onPrevClick}
+              >
+                <ChevronLeftIcon className='h-4 w-4 sm:h-6 sm:w-6' />
+              </motion.button>
+            )}
+          </AnimatePresence>
+
+          <AnimatePresence initial={false}>
+            {current + 1 < images.length && (
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.8 }}
+                exit={{ opacity: 0, pointerEvents: 'none' }}
+                whileHover={{ opacity: 0.8 }}
+                className='pointer-events absolute top-1/2 right-2 z-20 -mt-4 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full bg-[#c2c2c3]/80 text-white backdrop-blur-xs transition-all sm:h-8 sm:w-8'
+                onClick={onNextClick}
+              >
+                <ChevronRightIcon className='h-4 w-4 sm:h-6 sm:w-6' />
+              </motion.button>
+            )}
+          </AnimatePresence>
+
+          {/* Control Pills */}
+          <div className='absolute right-0 bottom-2 left-0 flex justify-center sm:bottom-4'>
+            <div className='flex rounded-full bg-[#c2c2c3]/40 px-1.5 py-1.5 backdrop-blur-xs sm:px-2 sm:py-2'>
+              {[...images].map((_, idx) => (
+                <button
+                  className='cursor-pointer px-0.5 sm:px-1'
+                  key={idx}
+                  onClick={() => setCurrent(idx)}
+                >
+                  <div
+                    className={`h-1.5 w-1.5 rounded-full transition-all sm:h-2 sm:w-2 ${
+                      idx === current ? 'bg-white' : 'bg-gray-400/80'
+                    }`}
+                  ></div>
+                </button>
               ))}
-            </motion.div>
-            <AnimatePresence initial={false}>
-              {index > 0 && (
-                <motion.button
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0, pointerEvents: 'none' }}
-                  whileHover={{ opacity: 1 }}
-                  className='absolute left-2 top-1/2 -mt-4 flex h-8 w-8 items-center justify-center rounded-full bg-white'
-                  onClick={() => setIndex(index - 1)}
-                >
-                  <ChevronLeftIcon className='h-6 w-6' />
-                </motion.button>
-              )}
-            </AnimatePresence>
-            <AnimatePresence initial={false}>
-              {index + 1 < images.length && (
-                <motion.button
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0, pointerEvents: 'none' }}
-                  whileHover={{ opacity: 1 }}
-                  className='absolute right-2 top-1/2 -mt-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/60 transition hover:bg-white/80'
-                  onClick={() => setIndex(index + 1)}
-                >
-                  <ChevronRightIcon className='h-6 w-6' />
-                </motion.button>
-              )}
-            </AnimatePresence>
-          </div>
-          <div className='absolute inset-x-0 bottom-6 flex justify-center overflow-hidden'>
-            <motion.div
-              initial={false}
-              animate={{
-                x: `-${
-                  index * 100 * (collapsedAspectRatio / fullAspectRatio) +
-                  index * gap +
-                  margin
-                }%`,
-              }}
-              style={{ aspectRatio: fullAspectRatio, gap: `${gap}%` }}
-              className='flex h-14'
-            >
-              {images.map((image, i) => (
-                <motion.button
-                  key={image}
-                  onClick={() => setIndex(i)}
-                  whileHover={{ opacity: 1 }}
-                  initial={false}
-                  animate={i === index ? 'active' : 'inactive'}
-                  variants={{
-                    active: {
-                      marginLeft: `${margin}%`,
-                      marginRight: `${margin}%`,
-                      opacity: 1,
-                      aspectRatio: fullAspectRatio,
-                    },
-                    inactive: {
-                      marginLeft: '0%',
-                      marginRight: '0%',
-                      opacity: 0.5,
-                      aspectRatio: collapsedAspectRatio,
-                    },
-                  }}
-                >
-                  <motion.img src={image} className='h-full object-cover' />
-                </motion.button>
-              ))}
-            </motion.div>
+            </div>
           </div>
         </div>
-      </div>
-    </MotionConfig>
+      </MotionConfig>
+    </main>
   );
 };
 
