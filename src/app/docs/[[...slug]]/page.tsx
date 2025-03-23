@@ -54,10 +54,14 @@ const DocPage: React.FC<DocPageProps> = async ({ params }) => {
           <Mdx code={doc.body.code} />
         </div>
         <section>
-          <h2 className='mb-1 text-lg font-semibold'>Resources</h2>
-          <p className='mb-4 text-sm text-muted-foreground'>
-            Some links for inspiration.
-          </p>
+          {doc.resources && doc.resources.length > 0 && (
+            <>
+              <h2 className='mb-1 text-lg font-semibold'>Resources</h2>
+              <p className='mb-4 text-sm text-muted-foreground'>
+                Some links for inspiration.
+              </p>
+            </>
+          )}
           <ul className='list-disc space-y-2 pl-6'>
             {doc.resources &&
               doc.resources.map((link, index: number) => (

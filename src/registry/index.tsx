@@ -81,6 +81,12 @@ const ui: Registry = {
     files: ['src/registry/core/ui/carousel.tsx'],
     component: React.lazy(() => import('@/registry/core/ui/carousel')),
   },
+  'link-button': {
+    name: 'link-button',
+    type: 'components:ui',
+    files: ['src/registry/core/ui/link-button.tsx'],
+    component: React.lazy(() => import('@/registry/core/ui/link-button')),
+  },
 };
 
 const example: Registry = {
@@ -96,6 +102,14 @@ const example: Registry = {
     files: ['src/registry/core/example/status-button-demo.tsx'],
     component: React.lazy(
       () => import('@/registry/core/example/status-button-demo'),
+    ),
+  },
+  'link-button-demo': {
+    name: 'link-button-demo',
+    type: 'components:example',
+    files: ['src/registry/core/example/link-button-demo.tsx'],
+    component: React.lazy(
+      () => import('@/registry/core/example/link-button-demo'),
     ),
   },
   'resizable-panel-demo': {
