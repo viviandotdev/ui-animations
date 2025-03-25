@@ -112,6 +112,14 @@ const example: Registry = {
       () => import('@/registry/core/example/link-button-demo'),
     ),
   },
+  'hover-button-demo': {
+    name: 'hover-button-demo',
+    type: 'components:example',
+    files: ['src/registry/core/example/hover-button-demo.tsx'],
+    component: React.lazy(
+      () => import('@/registry/core/example/hover-button-demo'),
+    ),
+  },
   'resizable-panel-demo': {
     name: 'resizable-panel-demo',
     type: 'components:example',
