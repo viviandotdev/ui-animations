@@ -84,7 +84,7 @@ export default function Page() {
                     animate='center'
                     exit='exit'
                   >
-                    <header className='relative flex justify-between px-8'>
+                    <div className='relative flex justify-between px-8'>
                       <div className='border relative w-full flex justify-between py-1 dark:border-stone-700'>
                         <motion.button
                           variants={{
@@ -130,7 +130,7 @@ export default function Page() {
                           exit: { visibility: 'hidden' },
                         }}
                       />
-                    </header>
+                    </div>
                     <motion.div
                       variants={{
                         exit: { visibility: 'hidden' },

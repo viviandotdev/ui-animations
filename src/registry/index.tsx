@@ -87,6 +87,12 @@ const ui: Registry = {
     files: ['src/registry/core/ui/link-button.tsx'],
     component: React.lazy(() => import('@/registry/core/ui/link-button')),
   },
+  'dropdown-button': {
+    name: 'dropdown-button',
+    type: 'components:ui',
+    files: ['src/registry/core/ui/dropdown-button.tsx'],
+    component: React.lazy(() => import('@/registry/core/ui/dropdown-button')),
+  },
 };
 
 const example: Registry = {

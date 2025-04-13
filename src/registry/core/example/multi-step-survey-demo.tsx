@@ -85,14 +85,14 @@ const MultiStepComponentDemo = () => {
       >
         {steps.map((step, index) => (
           <div key={index}>
-            <header className='mb-4 space-y-2'>
+            <div className='mb-4 space-y-2'>
               <h2 className='text-xl text-left font-bold text-black dark:text-white'>
                 {step.header.title}
               </h2>
               <p className='text-sm text-left text-zinc-500 dark:text-zinc-400'>
                 {step.header.description}
               </p>
-            </header>
+            </div>
             {step.content}
           </div>
         ))}
